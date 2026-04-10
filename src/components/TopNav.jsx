@@ -62,9 +62,10 @@ const TabsSection = styled.div`
 const Tab = styled.div`
   display: flex;
   align-items: center;
+  gap: 4px;
   height: 40px;
   max-width: 224px;
-  padding: 0 8px;
+  padding: 0 12px;
   background-color: ${props => props.$active ? '#293239' : 'transparent'};
   border-radius: 8px;
   color: ${props => props.$active ? 'white' : '#293239'};
@@ -81,12 +82,11 @@ const TabIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 16px;
+  height: 16px;
 `;
 
 const TabText = styled.div`
-  flex: 1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -169,13 +169,6 @@ function TopNav() {
       </TabsSection>
 
       <RightSection>
-        <IconButton>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-            <circle cx="10" cy="5" r="2"/>
-            <circle cx="10" cy="10" r="2"/>
-            <circle cx="10" cy="15" r="2"/>
-          </svg>
-        </IconButton>
         <Avatar>
           <AvatarImage />
         </Avatar>

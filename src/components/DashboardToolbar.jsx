@@ -80,7 +80,7 @@ const FilterDropdown = styled.div`
   select {
     width: ${props => props.$width || '140px'};
     height: 33px;
-    padding: 8px 32px 8px 12px;
+    padding: 8px 28px 8px 28px;
     border: 1px solid #d8dcde;
     border-radius: 4px;
     background-color: white;
@@ -102,12 +102,12 @@ const FilterDropdown = styled.div`
   &::before {
     content: '';
     position: absolute;
-    left: 12px;
+    left: 10px;
     top: 50%;
     transform: translateY(-50%);
     width: 12px;
     height: 12px;
-    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6L6 10L10 6' stroke='%23293239' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 3h8M3 6h6M4 9h4' stroke='%23687782' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: center;
     pointer-events: none;
@@ -116,16 +116,15 @@ const FilterDropdown = styled.div`
   &::after {
     content: '';
     position: absolute;
-    right: 12px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    width: 12px;
-    height: 12px;
-    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 2L8 6L4 10' stroke='%23293239' stroke-width='1.5'/%3E%3C/svg%3E");
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%23293239' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: center;
     pointer-events: none;
-    transform: translateY(-50%) rotate(90deg);
   }
 `;
 
