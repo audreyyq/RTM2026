@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DEFAULT_THEME } from '@zendeskgarden/react-theming';
 
 const SideNavContainer = styled.div`
   display: flex;
@@ -10,13 +9,13 @@ const SideNavContainer = styled.div`
   width: 56px;
   height: 100%;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 67.5%, rgba(92, 105, 112, 0.08) 100%), #f8f9f9;
-  padding: ${DEFAULT_THEME.space.sm} 0;
+  padding: 12px 0;
 `;
 
 const NavItems = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${DEFAULT_THEME.space.sm};
+  gap: 12px;
 `;
 
 const NavItem = styled.button`
@@ -26,13 +25,13 @@ const NavItem = styled.button`
   width: 32px;
   height: 32px;
   border: none;
-  background: ${props => props.$active ? DEFAULT_THEME.colors.grey[800] : 'transparent'};
-  border-radius: ${DEFAULT_THEME.borderRadii.md};
+  background: ${props => props.$active ? '#2f3941' : 'transparent'};
+  border-radius: 8px;
   cursor: pointer;
-  color: ${props => props.$active ? 'white' : DEFAULT_THEME.colors.grey[600]};
+  color: ${props => props.$active ? 'white' : '#68737d'};
 
   &:hover {
-    background-color: ${props => props.$active ? DEFAULT_THEME.colors.grey[800] : DEFAULT_THEME.colors.grey[200]};
+    background-color: ${props => props.$active ? '#2f3941' : '#e9ebed'};
   }
 
   svg {

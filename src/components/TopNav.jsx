@@ -1,21 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DEFAULT_THEME } from '@zendeskgarden/react-theming';
 
 const TopNavContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: ${DEFAULT_THEME.space.xs};
+  gap: 8px;
   height: 48px;
-  background-color: ${DEFAULT_THEME.colors.grey[100]};
-  padding: 0 ${DEFAULT_THEME.space.xs};
-  border-bottom: 1px solid ${DEFAULT_THEME.colors.grey[300]};
+  background-color: #f8f9f9;
+  padding: 0 8px;
+  border-bottom: 1px solid #e0e0e0;
 `;
 
 const LeftSection = styled.div`
   display: flex;
   align-items: center;
-  gap: ${DEFAULT_THEME.space.xs};
+  gap: 8px;
 `;
 
 const Logo = styled.div`
@@ -34,19 +33,19 @@ const Logo = styled.div`
 const ProductTray = styled.button`
   display: flex;
   align-items: center;
-  gap: ${DEFAULT_THEME.space.xs};
-  padding: 6px ${DEFAULT_THEME.space.sm};
+  gap: 8px;
+  padding: 6px 12px;
   border: none;
   background: transparent;
-  border-radius: ${DEFAULT_THEME.borderRadii.md};
+  border-radius: 8px;
   cursor: pointer;
-  font-family: ${DEFAULT_THEME.fonts.system};
-  font-size: ${DEFAULT_THEME.fontSizes.md};
-  font-weight: ${DEFAULT_THEME.fontWeights.semibold};
-  color: ${DEFAULT_THEME.colors.foreground};
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #293239;
 
   &:hover {
-    background-color: ${DEFAULT_THEME.colors.grey[200]};
+    background-color: #e9ebed;
   }
 `;
 
@@ -62,16 +61,16 @@ const Tab = styled.div`
   align-items: center;
   height: 40px;
   max-width: 224px;
-  padding: 0 ${DEFAULT_THEME.space.xs};
-  background-color: ${props => props.$active ? DEFAULT_THEME.colors.grey[800] : 'transparent'};
-  border-radius: ${DEFAULT_THEME.borderRadii.md};
-  color: ${props => props.$active ? 'white' : DEFAULT_THEME.colors.foreground};
-  font-size: ${DEFAULT_THEME.fontSizes.sm};
-  font-weight: ${DEFAULT_THEME.fontWeights.semibold};
+  padding: 0 8px;
+  background-color: ${props => props.$active ? '#293239' : 'transparent'};
+  border-radius: 8px;
+  color: ${props => props.$active ? 'white' : '#293239'};
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
 
   &:hover {
-    background-color: ${props => props.$active ? DEFAULT_THEME.colors.grey[800] : DEFAULT_THEME.colors.grey[200]};
+    background-color: ${props => props.$active ? '#293239' : '#e9ebed'};
   }
 `;
 
@@ -93,8 +92,8 @@ const TabText = styled.div`
 const RightSection = styled.div`
   display: flex;
   align-items: center;
-  gap: ${DEFAULT_THEME.space.xs};
-  padding-right: ${DEFAULT_THEME.space.xxs};
+  gap: 8px;
+  padding-right: 4px;
 `;
 
 const IconButton = styled.button`
@@ -105,11 +104,11 @@ const IconButton = styled.button`
   height: 32px;
   border: none;
   background: transparent;
-  border-radius: ${DEFAULT_THEME.borderRadii.md};
+  border-radius: 4px;
   cursor: pointer;
 
   &:hover {
-    background-color: ${DEFAULT_THEME.colors.grey[200]};
+    background-color: #e9ebed;
   }
 `;
 
@@ -118,7 +117,7 @@ const Avatar = styled.div`
   height: 32px;
   border-radius: 50%;
   overflow: hidden;
-  background-color: ${DEFAULT_THEME.colors.primaryHue};
+  background-color: #1f73b7;
   display: flex;
   align-items: center;
   justify-content: center;

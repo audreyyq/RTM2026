@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from '@zendeskgarden/react-buttons';
-import { Dropdown, Select, Field, Label, Menu, Item } from '@zendeskgarden/react-dropdowns';
-import { DEFAULT_THEME } from '@zendeskgarden/react-theming';
 
 const ToolbarContainer = styled.div`
   display: flex;
@@ -15,16 +13,16 @@ const ActionBar = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 48px;
-  padding: 0 ${DEFAULT_THEME.space.lg};
-  border-bottom: 1px solid ${DEFAULT_THEME.colors.grey[300]};
+  padding: 0 32px;
+  border-bottom: 1px solid #e0e0e0;
 `;
 
 const Breadcrumbs = styled.div`
   display: flex;
   align-items: center;
-  gap: ${DEFAULT_THEME.space.xs};
-  font-size: ${DEFAULT_THEME.fontSizes.md};
-  color: ${DEFAULT_THEME.colors.foreground};
+  gap: 8px;
+  font-size: 14px;
+  color: #293239;
 `;
 
 const BreadcrumbLink = styled.span`
@@ -36,13 +34,13 @@ const BreadcrumbLink = styled.span`
 `;
 
 const BreadcrumbSeparator = styled.span`
-  color: ${DEFAULT_THEME.colors.grey[600]};
+  color: #68737d;
 `;
 
 const ActionButtons = styled.div`
   display: flex;
   align-items: center;
-  gap: ${DEFAULT_THEME.space.sm};
+  gap: 12px;
 `;
 
 const IconButton = styled.button`
@@ -53,12 +51,12 @@ const IconButton = styled.button`
   height: 32px;
   border: none;
   background: transparent;
-  border-radius: ${DEFAULT_THEME.borderRadii.md};
+  border-radius: 4px;
   cursor: pointer;
-  color: ${DEFAULT_THEME.colors.grey[700]};
+  color: #68737d;
 
   &:hover {
-    background-color: ${DEFAULT_THEME.colors.grey[100]};
+    background-color: #f8f9f9;
   }
 
   svg {
@@ -70,9 +68,9 @@ const IconButton = styled.button`
 const FilterBar = styled.div`
   display: flex;
   align-items: center;
-  gap: ${DEFAULT_THEME.space.sm};
+  gap: 12px;
   padding: 16px;
-  border-bottom: 1px solid ${DEFAULT_THEME.colors.grey[200]};
+  border-bottom: 1px solid #eeeeee;
 `;
 
 const FilterDropdown = styled.div`
@@ -83,21 +81,21 @@ const FilterDropdown = styled.div`
     width: ${props => props.$width || '140px'};
     height: 33px;
     padding: 8px 32px 8px 12px;
-    border: 1px solid ${DEFAULT_THEME.colors.grey[400]};
-    border-radius: ${DEFAULT_THEME.borderRadii.md};
+    border: 1px solid #d8dcde;
+    border-radius: 4px;
     background-color: white;
     font-size: 12px;
     cursor: pointer;
     appearance: none;
 
     &:hover {
-      border-color: ${DEFAULT_THEME.colors.grey[500]};
+      border-color: #87929d;
     }
 
     &:focus {
       outline: none;
-      border-color: ${DEFAULT_THEME.colors.primaryHue};
-      box-shadow: 0 0 0 3px ${DEFAULT_THEME.colors.primaryHue}33;
+      border-color: #1f73b7;
+      box-shadow: 0 0 0 3px rgba(31, 115, 183, 0.2);
     }
   }
 
