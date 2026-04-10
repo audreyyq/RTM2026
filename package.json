@@ -1,0 +1,39 @@
+{
+  "name": "rtm2026-contact-center-prototype",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@zendeskgarden/react-accordions": "^9.0.0",
+    "@zendeskgarden/react-avatars": "^9.0.0",
+    "@zendeskgarden/react-buttons": "^9.0.0",
+    "@zendeskgarden/react-chrome": "^9.0.0",
+    "@zendeskgarden/react-datepickers": "^9.0.0",
+    "@zendeskgarden/react-dropdowns": "^9.0.0",
+    "@zendeskgarden/react-forms": "^9.0.0",
+    "@zendeskgarden/react-grid": "^9.0.0",
+    "@zendeskgarden/react-loaders": "^9.0.0",
+    "@zendeskgarden/react-modals": "^9.0.0",
+    "@zendeskgarden/react-notifications": "^9.0.0",
+    "@zendeskgarden/react-tables": "^9.0.0",
+    "@zendeskgarden/react-tabs": "^9.0.0",
+    "@zendeskgarden/react-tags": "^9.0.0",
+    "@zendeskgarden/react-theming": "^9.0.0",
+    "@zendeskgarden/react-tooltips": "^9.0.0",
+    "recharts": "^2.12.7",
+    "styled-components": "^6.1.13"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.2"
+  }
+}
