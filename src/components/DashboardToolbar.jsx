@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from '@zendeskgarden/react-buttons';
 
+const ReloadIcon = "https://www.figma.com/api/mcp/asset/6b423ed7-0b44-4102-b6a0-5060f6f53387";
+
 const ToolbarContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -140,9 +142,7 @@ function DashboardToolbar() {
 
         <ActionButtons>
           <IconButton title="Refresh">
-            <svg viewBox="0 0 16 16" fill="currentColor">
-              <path fillRule="evenodd" d="M8 3a5 5 0 104.546 2.914.5.5 0 00-.908-.417A4 4 0 118 4v1.076l.812-.812a.5.5 0 01.707.707l-2 2a.5.5 0 01-.707 0l-2-2a.5.5 0 11.707-.707L8 4.076V3z" />
-            </svg>
+            <img src={ReloadIcon} alt="Refresh" style={{ width: '16px', height: '16px' }} />
           </IconButton>
           <Button size="small">Edit</Button>
           <Button isPrimary size="small">Share</Button>
