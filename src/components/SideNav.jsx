@@ -46,46 +46,40 @@ const BottomSection = styled.div`
   align-items: center;
 `;
 
+// Garden navigation icons
+const HomeIcon = "https://www.figma.com/api/mcp/asset/a9622107-567f-4218-abe7-2bed2c10ca85";
+const BarChartIcon = "https://www.figma.com/api/mcp/asset/cb2b77cd-c9af-4d30-ab23-d057df5077f3";
+const LayoutGridIcon = "https://www.figma.com/api/mcp/asset/a4b88c4e-bbf9-410f-b0ac-edcbfd69f075";
+const FlagIcon = "https://www.figma.com/api/mcp/asset/c436dbc1-64ad-4ba2-9ad8-ae64d21fecc4";
+const GearIcon = "https://www.figma.com/api/mcp/asset/d16f24dc-192a-4bef-ad79-84292e74c0c2";
+
 function SideNav() {
   return (
     <SideNavContainer>
       <NavItems>
         {/* Home */}
         <NavItem>
-          <svg viewBox="0 0 20 20" fill="currentColor">
-            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-          </svg>
+          <img src={HomeIcon} alt="Home" style={{ width: '15px', height: '15px' }} />
         </NavItem>
 
-        {/* Real-time monitoring */}
+        {/* Bar chart square */}
         <NavItem>
-          <svg viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-          </svg>
+          <img src={BarChartIcon} alt="Analytics" style={{ width: '15px', height: '15px' }} />
         </NavItem>
 
-        {/* Dashboard - Active */}
+        {/* Layout grid - Active */}
         <NavItem $active>
-          <svg viewBox="0 0 20 20" fill="currentColor">
-            <rect x="3" y="3" width="6" height="6" rx="1"/>
-            <rect x="11" y="3" width="6" height="6" rx="1"/>
-            <rect x="3" y="11" width="6" height="6" rx="1"/>
-            <rect x="11" y="11" width="6" height="6" rx="1"/>
-          </svg>
+          <img src={LayoutGridIcon} alt="Dashboard" style={{ width: '15px', height: '15px', filter: 'brightness(0) invert(1)' }} />
         </NavItem>
 
-        {/* Reports/Flag */}
+        {/* Flag */}
         <NavItem>
-          <svg viewBox="0 0 20 20" fill="currentColor">
-            <path d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" />
-          </svg>
+          <img src={FlagIcon} alt="Overview" style={{ width: '15px', height: '15px' }} />
         </NavItem>
 
-        {/* Settings */}
+        {/* Gear */}
         <NavItem>
-          <svg viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
-          </svg>
+          <img src={GearIcon} alt="Settings" style={{ width: '15px', height: '15px' }} />
         </NavItem>
       </NavItems>
 

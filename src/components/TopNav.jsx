@@ -24,11 +24,14 @@ const Logo = styled.div`
   width: 40px;
   height: 32px;
 
-  svg {
-    width: 20px;
-    height: 20px;
+  img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
   }
 `;
+
+const ZendeskLogo = "https://www.figma.com/api/mcp/asset/3ce2cebc-d660-4927-8d35-5da333854c8e";
 
 const ProductTray = styled.button`
   display: flex;
@@ -136,9 +139,7 @@ function TopNav() {
     <TopNavContainer>
       <LeftSection>
         <Logo>
-          <svg viewBox="0 0 20 20" fill="currentColor">
-            <path d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0z"/>
-          </svg>
+          <img src={ZendeskLogo} alt="Zendesk" />
         </Logo>
         <ProductTray>
           <span>Analytics</span>
