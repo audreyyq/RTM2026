@@ -1,27 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BASELINE_STATE } from '../data/dashboardData';
+import DashboardToolbar from './DashboardToolbar';
 
 const DashboardContainer = styled.div`
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   background-color: #f8f9f9;
+`;
+
+const ContentArea = styled.div`
+  flex: 1;
   padding: 24px;
-`;
-
-const Header = styled.div`
-  margin-bottom: 24px;
-`;
-
-const Title = styled.h1`
-  font-size: 28px;
-  font-weight: 600;
-  color: #2f3941;
-  margin-bottom: 8px;
-`;
-
-const Subtitle = styled.p`
-  font-size: 14px;
-  color: #68737d;
+  overflow: auto;
 `;
 
 const ComingSoon = styled.div`
@@ -37,20 +29,19 @@ function Dashboard({ state }) {
 
   return (
     <DashboardContainer>
-      <Header>
-        <Title>Contact Center Monitoring Dashboard</Title>
-        <Subtitle>Hybrid AI + Human Agent Operations</Subtitle>
-      </Header>
+      <DashboardToolbar />
 
-      <ComingSoon>
-        <h2>🚀 Dashboard Under Construction</h2>
-        <p style={{ marginTop: '16px', color: '#68737d' }}>
-          Building the monitoring dashboard with Garden UI components...
-        </p>
-        <p style={{ marginTop: '12px', fontSize: '14px', color: '#87929d' }}>
-          Alert Status: {data.alert.message}
-        </p>
-      </ComingSoon>
+      <ContentArea>
+        <ComingSoon>
+          <h2>🚀 Dashboard Widgets Coming Next</h2>
+          <p style={{ marginTop: '16px', color: '#68737d' }}>
+            Navigation structure complete. Now building dashboard widgets...
+          </p>
+          <p style={{ marginTop: '12px', fontSize: '14px', color: '#87929d' }}>
+            Alert Status: {data.alert.message}
+          </p>
+        </ComingSoon>
+      </ContentArea>
     </DashboardContainer>
   );
 }

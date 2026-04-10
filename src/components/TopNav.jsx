@@ -1,0 +1,187 @@
+import React from 'react';
+import styled from 'styled-components';
+import { DEFAULT_THEME } from '@zendeskgarden/react-theming';
+
+const TopNavContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${DEFAULT_THEME.space.xs};
+  height: 48px;
+  background-color: ${DEFAULT_THEME.colors.grey[100]};
+  padding: 0 ${DEFAULT_THEME.space.xs};
+  border-bottom: 1px solid ${DEFAULT_THEME.colors.grey[300]};
+`;
+
+const LeftSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${DEFAULT_THEME.space.xs};
+`;
+
+const Logo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 32px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+const ProductTray = styled.button`
+  display: flex;
+  align-items: center;
+  gap: ${DEFAULT_THEME.space.xs};
+  padding: 6px ${DEFAULT_THEME.space.sm};
+  border: none;
+  background: transparent;
+  border-radius: ${DEFAULT_THEME.borderRadii.md};
+  cursor: pointer;
+  font-family: ${DEFAULT_THEME.fonts.system};
+  font-size: ${DEFAULT_THEME.fontSizes.md};
+  font-weight: ${DEFAULT_THEME.fontWeights.semibold};
+  color: ${DEFAULT_THEME.colors.foreground};
+
+  &:hover {
+    background-color: ${DEFAULT_THEME.colors.grey[200]};
+  }
+`;
+
+const TabsSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+`;
+
+const Tab = styled.div`
+  display: flex;
+  align-items: center;
+  height: 40px;
+  max-width: 224px;
+  padding: 0 ${DEFAULT_THEME.space.xs};
+  background-color: ${props => props.$active ? DEFAULT_THEME.colors.grey[800] : 'transparent'};
+  border-radius: ${DEFAULT_THEME.borderRadii.md};
+  color: ${props => props.$active ? 'white' : DEFAULT_THEME.colors.foreground};
+  font-size: ${DEFAULT_THEME.fontSizes.sm};
+  font-weight: ${DEFAULT_THEME.fontWeights.semibold};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${props => props.$active ? DEFAULT_THEME.colors.grey[800] : DEFAULT_THEME.colors.grey[200]};
+  }
+`;
+
+const TabIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+`;
+
+const TabText = styled.div`
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const RightSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${DEFAULT_THEME.space.xs};
+  padding-right: ${DEFAULT_THEME.space.xxs};
+`;
+
+const IconButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: ${DEFAULT_THEME.borderRadii.md};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${DEFAULT_THEME.colors.grey[200]};
+  }
+`;
+
+const Avatar = styled.div`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: ${DEFAULT_THEME.colors.primaryHue};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
+
+const AvatarImage = styled.div`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+`;
+
+function TopNav() {
+  return (
+    <TopNavContainer>
+      <LeftSection>
+        <Logo>
+          <svg viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0z"/>
+          </svg>
+        </Logo>
+        <ProductTray>
+          <span>Analytics</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="2" fill="none"/>
+          </svg>
+        </ProductTray>
+      </LeftSection>
+
+      <TabsSection>
+        <Tab $active>
+          <TabIcon>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <rect x="3" y="3" width="4" height="4" rx="1"/>
+              <rect x="9" y="3" width="4" height="4" rx="1"/>
+              <rect x="3" y="9" width="4" height="4" rx="1"/>
+              <rect x="9" y="9" width="4" height="4" rx="1"/>
+            </svg>
+          </TabIcon>
+          <TabText>Dashboard A</TabText>
+        </Tab>
+        <IconButton>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 5v10M5 10h10" stroke="currentColor" strokeWidth="2"/>
+          </svg>
+        </IconButton>
+      </TabsSection>
+
+      <RightSection>
+        <IconButton>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <circle cx="10" cy="5" r="2"/>
+            <circle cx="10" cy="10" r="2"/>
+            <circle cx="10" cy="15" r="2"/>
+          </svg>
+        </IconButton>
+        <Avatar>
+          <AvatarImage />
+        </Avatar>
+      </RightSection>
+    </TopNavContainer>
+  );
+}
+
+export default TopNav;
