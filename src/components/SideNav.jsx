@@ -46,11 +46,11 @@ const BottomSection = styled.div`
   align-items: center;
 `;
 
-// Garden navigation icons
-const HomeIcon = "https://www.figma.com/api/mcp/asset/a9622107-567f-4218-abe7-2bed2c10ca85";
+// Flora + Global Navigation icons
+const HomeIcon = "https://www.figma.com/api/mcp/asset/33b49bc8-b96a-4c4b-9625-4dc92798dd0d";
 const BarChartIcon = "https://www.figma.com/api/mcp/asset/cb2b77cd-c9af-4d30-ab23-d057df5077f3";
-const LayoutGridIcon = "https://www.figma.com/api/mcp/asset/a4b88c4e-bbf9-410f-b0ac-edcbfd69f075";
-const FlagIcon = "https://www.figma.com/api/mcp/asset/c436dbc1-64ad-4ba2-9ad8-ae64d21fecc4";
+const LayoutGridIcon = "https://www.figma.com/api/mcp/asset/d6b72e37-5999-42aa-8cff-0a9db3d23ce2";
+const FlagIcon = "https://www.figma.com/api/mcp/asset/bd16eb7b-ed3a-43d1-930c-4b1dce4e38cd";
 const GearIcon = "https://www.figma.com/api/mcp/asset/d16f24dc-192a-4bef-ad79-84292e74c0c2";
 
 function SideNav() {
@@ -67,9 +67,9 @@ function SideNav() {
           <img src={BarChartIcon} alt="Analytics" style={{ width: '15px', height: '15px' }} />
         </NavItem>
 
-        {/* Layout grid - Active */}
-        <NavItem $active>
-          <img src={LayoutGridIcon} alt="Dashboard" style={{ width: '15px', height: '15px', filter: 'brightness(0) invert(1)' }} />
+        {/* Layout grid */}
+        <NavItem>
+          <img src={LayoutGridIcon} alt="Dashboard" style={{ width: '15px', height: '15px' }} />
         </NavItem>
 
         {/* Flag */}

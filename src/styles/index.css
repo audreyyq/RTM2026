@@ -13,8 +13,16 @@ body {
   background-color: #f8f9f9;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
 #root {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 code {

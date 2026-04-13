@@ -8,30 +8,28 @@ const TopNavContainer = styled.div`
   height: 48px;
   background-color: #f8f9f9;
   padding: 0 8px;
-  border-bottom: 1px solid #e0e0e0;
 `;
 
 const LeftSection = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
 `;
 
 const Logo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
+  width: 56px;
   height: 32px;
 
   img {
-    width: 18px;
-    height: 18px;
+    width: 40px;
+    height: 32px;
     object-fit: contain;
   }
 `;
 
-const ZendeskLogo = "https://www.figma.com/api/mcp/asset/3ce2cebc-d660-4927-8d35-5da333854c8e";
+const ZendeskLogo = "/RTM2026/Logo.png";
 
 const ProductTray = styled.button`
   display: flex;
@@ -62,10 +60,10 @@ const TabsSection = styled.div`
 const Tab = styled.div`
   display: flex;
   align-items: center;
-  gap: 4px;
-  height: 40px;
+  gap: 8px;
+  height: 36px;
   max-width: 224px;
-  padding: 0 12px;
+  padding: 0 8px 0 12px;
   background-color: ${props => props.$active ? '#293239' : 'transparent'};
   border-radius: 8px;
   color: ${props => props.$active ? 'white' : '#293239'};
@@ -75,6 +73,26 @@ const Tab = styled.div`
 
   &:hover {
     background-color: ${props => props.$active ? '#293239' : '#e9ebed'};
+  }
+`;
+
+const TabDismiss = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: inherit;
+  padding: 0;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.1);
   }
 `;
 
@@ -120,18 +138,13 @@ const Avatar = styled.div`
   height: 32px;
   border-radius: 50%;
   overflow: hidden;
-  background-color: #1f73b7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-`;
 
-const AvatarImage = styled.div`
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 function TopNav() {
@@ -159,7 +172,12 @@ function TopNav() {
               <rect x="9" y="9" width="4" height="4" rx="1"/>
             </svg>
           </TabIcon>
-          <TabText>Dashboard A</TabText>
+          <TabText>Messaging operations dashboard</TabText>
+          <TabDismiss>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          </TabDismiss>
         </Tab>
         <IconButton>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
@@ -170,7 +188,7 @@ function TopNav() {
 
       <RightSection>
         <Avatar>
-          <AvatarImage />
+          <img src="/RTM2026/Avatar.png" alt="User avatar" />
         </Avatar>
       </RightSection>
     </TopNavContainer>
