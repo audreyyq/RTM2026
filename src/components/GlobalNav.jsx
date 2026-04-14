@@ -116,6 +116,51 @@ const AddTabButton = styled.button`
   }
 `;
 
+const NavAlertStatesDock = styled.div`
+  position: fixed;
+  bottom: ${({ theme }) => theme.space.base * 3}px;
+  left: 0;
+  width: ${({ theme }) => theme.space.base * 14}px;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+
+  & > * {
+    pointer-events: auto;
+  }
+`;
+
+const NavAlertStatesLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  cursor: pointer;
+`;
+
+const NavAlertStatesInput = styled.input.attrs({ type: 'checkbox' })`
+  width: 30px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #30aabc;
+`;
+
+const NavAlertStatesCaption = styled.span`
+  font-size: 9px;
+  font-weight: 600;
+  color: #d8dcde;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 48px;
+`;
+
 const products = [
   { value: 'support', label: 'Support', href: '#', icon: <ProductSupportIcon /> },
   { value: 'knowledge', label: 'Knowledge', href: '#', icon: <ProductKnowledgeIcon /> },
@@ -125,9 +170,7 @@ const products = [
   { value: 'admin-center', label: 'Admin center', href: '#', icon: <ProductAdminCenterIcon /> },
 ];
 
-function GlobalNav({ children }) {
-  const [currentNav, setCurrentNav] = React.useState('dashboards');
-
+function GlobalNav({ children, showAlertStates = true, onShowAlertStatesChange }) {
   const headerTabs = (
     <TabsContainer>
       <Tab>
@@ -171,40 +214,20 @@ function GlobalNav({ children }) {
       </Header>
 
       <Nav>
-        <Nav.Item
-          icon={<HomeIcon />}
-          isCurrent={currentNav === 'home'}
-          onAction={() => setCurrentNav('home')}
-        >
+        <Nav.Item icon={<HomeIcon />} isCurrent={false} onAction={() => {}}>
           Home
         </Nav.Item>
-        <Nav.Item
-          icon={<LayoutGridIcon />}
-          isCurrent={currentNav === 'dashboards'}
-          onAction={() => setCurrentNav('dashboards')}
-        >
-          Dashboards
-        </Nav.Item>
-        <Nav.Item
-          icon={<BarChartIcon />}
-          isCurrent={currentNav === 'reports'}
-          onAction={() => setCurrentNav('reports')}
-        >
+        <Nav.Item icon={<BarChartIcon />} isCurrent={false} onAction={() => {}}>
           Reports
         </Nav.Item>
-        <Nav.Item
-          icon={<FlagIcon />}
-          isCurrent={currentNav === 'explore'}
-          onAction={() => setCurrentNav('explore')}
-        >
+        <Nav.Item icon={<LayoutGridIcon />} isCurrent={false} onAction={() => {}}>
+          Dashboards
+        </Nav.Item>
+        <Nav.Item icon={<FlagIcon />} isCurrent={false} onAction={() => {}}>
           Explore
         </Nav.Item>
         <Nav.Separator />
-        <Nav.Item
-          icon={<GearIcon />}
-          isCurrent={currentNav === 'settings'}
-          onAction={() => setCurrentNav('settings')}
-        >
+        <Nav.Item icon={<GearIcon />} isCurrent={false} onAction={() => {}}>
           Settings
         </Nav.Item>
       </Nav>
@@ -213,6 +236,18 @@ function GlobalNav({ children }) {
         <MainContent>{children}</MainContent>
       </Main>
     </Product>
+
+    <NavAlertStatesDock>
+      <NavAlertStatesLabel>
+        <NavAlertStatesInput
+          role="switch"
+          aria-checked={showAlertStates}
+          checked={showAlertStates}
+          onChange={(e) => onShowAlertStatesChange?.(e.target.checked)}
+        />
+        <NavAlertStatesCaption>Alerts</NavAlertStatesCaption>
+      </NavAlertStatesLabel>
+    </NavAlertStatesDock>
     </NavRoot>
   );
 }

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ThemeProvider } from '@zendeskgarden/react-theming';
 import GlobalNav from './components/GlobalNav';
 import Dashboard from './components/Dashboard';
+import SlackScreen from './components/SlackScreen';
 
 const AppShell = styled.div`
   flex: 1;
@@ -13,13 +14,29 @@ const AppShell = styled.div`
 `;
 
 function App() {
+  const [currentScreen, setCurrentScreen] = useState('slack');
   const [dashboardState, setDashboardState] = useState('baseline');
+  const [showAlertStates, setShowAlertStates] = useState(true);
+
+  if (currentScreen === 'slack') {
+    return (
+      <SlackScreen onViewDashboard={() => setCurrentScreen('dashboard')} />
+    );
+  }
 
   return (
     <ThemeProvider>
       <AppShell>
-        <GlobalNav>
-          <Dashboard state={dashboardState} onStateChange={setDashboardState} />
+        <GlobalNav
+          showAlertStates={showAlertStates}
+          onShowAlertStatesChange={setShowAlertStates}
+        >
+          <Dashboard
+            state={dashboardState}
+            onStateChange={setDashboardState}
+            showAlertStates={showAlertStates}
+            onResetPrototype={() => setCurrentScreen('slack')}
+          />
         </GlobalNav>
       </AppShell>
     </ThemeProvider>

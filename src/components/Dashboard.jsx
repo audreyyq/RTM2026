@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import { getColor } from '@zendeskgarden/react-theming';
 import { Skeleton } from '@zendeskgarden/react-loaders';
@@ -7,6 +7,7 @@ import { Button } from '@zendeskgarden/react-buttons';
 import { Alert, Title, Close } from '@zendeskgarden/react-notifications';
 import { BASELINE_STATE } from '../data/dashboardData';
 import DashboardToolbar from './DashboardToolbar';
+import SparkleStrokeIcon from '@zendeskgarden/svg-icons/src/16/sparkle-stroke.svg?react';
 
 const DashboardWrapper = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ const DashboardMain = styled.div`
   flex: 1;
   min-width: 0;
   min-height: 0;
-  transition: margin-right 0.3s ease;
+  transition: margin-right 200ms cubic-bezier(0.23, 1, 0.32, 1);
 `;
 
 const DashboardContainer = styled.div`
@@ -165,7 +166,7 @@ const MetricValue = styled.div`
   border-radius: 4px;
   padding: 2px 4px;
   margin: -2px -4px;
-  transition: background-color 0.15s ease;
+  transition: background-color 150ms ease-out;
   text-decoration: none;
 
   &:hover {
@@ -269,7 +270,7 @@ const SlaStatusValue = styled.div`
   border-radius: 4px;
   padding: 2px 6px;
   margin: -2px -6px 2px -6px;
-  transition: background-color 0.15s ease;
+  transition: background-color 150ms ease-out;
 
   &:hover {
     background-color: ${props => {
@@ -396,7 +397,7 @@ const RankedListValue = styled.span`
   cursor: pointer;
   padding: 2px 6px;
   border-radius: 4px;
-  transition: background-color 0.15s ease;
+  transition: background-color 150ms ease-out;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -427,6 +428,18 @@ const RecommendationsPanelWrap = styled.div`
   position: relative;
   z-index: 1;
   overflow: hidden;
+
+  /* Panel slide-in animation from right */
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity 400ms ease-out,
+    transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateX(60px);
+  }
 `;
 
 const RecommendationsPanel = styled.div`
@@ -440,6 +453,14 @@ const RecommendationsPanel = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  
+  /* Inner panel scale animation */
+  transform: scale(1);
+  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  
+  @starting-style {
+    transform: scale(0.98);
+  }
 `;
 
 const PanelHeader = styled.div`
@@ -466,10 +487,15 @@ const PanelCloseButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease-out, color 150ms ease-out;
   
   &:hover {
     background-color: #f8f9f9;
     color: #2f3941;
+  }
+  
+  &:active {
+    transform: scale(0.92);
   }
 `;
 
@@ -497,6 +523,7 @@ const RecommendationHeader = styled.div`
   gap: 12px;
   padding: 16px;
   cursor: pointer;
+  transition: background-color 150ms ease-out;
   
   &:hover {
     background-color: #fafafa;
@@ -584,9 +611,14 @@ const PrimaryActionButton = styled.button`
   color: #1f73b7;
   cursor: pointer;
   width: fit-content;
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease-out;
   
   &:hover {
     background-color: #f5faff;
+  }
+  
+  &:active {
+    transform: scale(0.97);
   }
 `;
 
@@ -597,15 +629,20 @@ const InvestigateButton = styled.button`
   padding: 8px 16px;
   background: white;
   border: 1px solid #d8dcde;
-  border-radius: 4px;
+  border-radius: 20px;
   font-size: 14px;
   color: #2f3941;
   cursor: pointer;
   width: fit-content;
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease-out, border-color 150ms ease-out;
   
   &:hover {
     background-color: #f8f9f9;
     border-color: #c2c8cc;
+  }
+  
+  &:active {
+    transform: scale(0.97);
   }
   
   svg {
@@ -625,6 +662,18 @@ const CopilotPanelWrap = styled.div`
   background: transparent;
   position: relative;
   z-index: 2;
+
+  /* Panel slide-in animation from right */
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity 400ms ease-out,
+    transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateX(60px);
+  }
 `;
 
 const CopilotPanel = styled.div`
@@ -637,6 +686,15 @@ const CopilotPanel = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
+
+  /* Inner panel scale animation */
+  transform: scale(1);
+  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  @starting-style {
+    transform: scale(0.98);
+  }
 `;
 
 const CopilotHeader = styled.div`
@@ -669,10 +727,15 @@ const CopilotCloseButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease-out, color 150ms ease-out;
   
   &:hover {
     background-color: #f8f9f9;
     color: #2f3941;
+  }
+  
+  &:active {
+    transform: scale(0.92);
   }
 `;
 
@@ -691,6 +754,18 @@ const CopilotMessage = styled.div`
   display: flex;
   gap: 12px;
   align-items: flex-start;
+  
+  /* Message entrance animation */
+  opacity: 1;
+  transform: translateY(0);
+  transition: 
+    opacity 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 `;
 
 const CopilotAvatar = styled.div`
@@ -748,14 +823,21 @@ const CopilotMessageText = styled.div`
   ul {
     margin: 8px 0;
     padding-left: 20px;
+    list-style-type: disc;
   }
   
   li {
     margin-bottom: 4px;
+    display: list-item;
+    
+    &::marker {
+      color: #68737d;
+    }
   }
   
   strong {
     color: #2f3941;
+    font-weight: 600;
   }
 `;
 
@@ -776,17 +858,342 @@ const QuickReplyButton = styled.button`
   cursor: pointer;
   text-align: left;
   width: fit-content;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease-out, border-color 150ms ease-out;
 
+  &:hover {
+    background-color: #f8f9f9;
+    border-color: #c2c8cc;
+  }
+  
+  &:active {
+    transform: scale(0.97);
+  }
+`;
+
+const CopilotRecCard = styled.div`
+  background: white;
+  border: 1px solid #d8dcde;
+  border-radius: 12px;
+  margin-top: 12px;
+  overflow: hidden;
+  
+  /* Card entrance animation */
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: 
+    opacity 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+`;
+
+const CopilotRecHeader = styled.div`
+  background: linear-gradient(135deg, #f0e6fa 0%, #e8e0f5 100%);
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(41, 50, 57, 1);
+`;
+
+const CopilotRecContent = styled.div`
+  padding: 16px;
+  border-radius: 20px 20px 0px 0px;
+`;
+
+const CopilotRecTitle = styled.h4`
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2f3941;
+  line-height: 1.4;
+`;
+
+const CopilotRecSection = styled.div`
+  margin-bottom: 12px;
+  
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+`;
+
+const CopilotRecSectionTitle = styled.p`
+  margin: 0 0 4px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2f3941;
+`;
+
+const CopilotRecList = styled.ul`
+  margin: 0;
+  padding-left: 18px;
+  list-style-type: disc;
+  
+  li {
+    font-size: 13px;
+    color: #49545c;
+    margin-bottom: 2px;
+    line-height: 1.4;
+    
+    &::marker {
+      color: #87929d;
+    }
+  }
+`;
+
+const CopilotRecActions = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+`;
+
+const CopilotRecButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: fit-content;
+  min-width: 120px;
+  padding: 10px 16px;
+  background: white;
+  border: 1px solid #d8dcde;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #2f3941;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease-out, border-color 150ms ease-out;
+
+  &:hover:not(:disabled) {
+    background-color: #f8f9f9;
+    border-color: #c2c8cc;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+  
+  &:disabled {
+    cursor: default;
+    opacity: 0.8;
+  }
+`;
+
+const CopilotViewAllButton = styled.button`
+  padding: 10px 16px;
+  background: white;
+  border: 1px solid #d8dcde;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #2f3941;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 12px;
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease-out, border-color 150ms ease-out;
+
+  &:hover {
+    background-color: #f8f9f9;
+    border-color: #c2c8cc;
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+`;
+
+const SuccessMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const SuccessHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #038153;
+`;
+
+const SuccessCheckmark = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: #edf8f4;
+  border-radius: 4px;
+  color: #038153;
+  font-size: 14px;
+`;
+
+const SuccessDescription = styled.p`
+  margin: 0;
+  font-size: 14px;
+  color: #2f3941;
+  line-height: 1.5;
+  
+  strong {
+    font-weight: 600;
+  }
+`;
+
+const SuccessExpectations = styled.div`
+  margin-top: 4px;
+`;
+
+const SuccessExpectationsTitle = styled.p`
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #68737d;
+`;
+
+const SuccessExpectationsList = styled.ul`
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14px;
+  color: #2f3941;
+  line-height: 1.6;
+  
+  li {
+    margin-bottom: 2px;
+  }
+`;
+
+const LoadingSpinner = styled.span`
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #d8dcde;
+  border-top-color: #2f3941;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+const CopilotStartScreen = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+`;
+
+const CopilotStartGradient = styled.div`
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(218, 201, 255, 1) 0%, rgba(163, 63, 225, 0.7) 42%, rgba(103, 67, 225, 0.4) 100%);
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.3;
+  z-index: 0;
+`;
+
+const CopilotStartContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 352px;
+`;
+
+const CopilotStartIcon = styled.div`
+  svg {
+    width: 16px;
+    height: 16px;
+    
+    path {
+      fill: url(#startSparkleGradient);
+    }
+  }
+`;
+
+const CopilotStartTitle = styled.h2`
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2f3941;
+`;
+
+const CopilotStartSuggestions = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+`;
+
+const CopilotSuggestionButton = styled.button`
+  display: block;
+  width: fit-content;
+  padding: 10px 16px;
+  background: white;
+  border: 1px solid #d8dcde;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #2f3941;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  
   &:hover {
     background-color: #f8f9f9;
     border-color: #c2c8cc;
   }
 `;
 
+const CopilotStartFooter = styled.div`
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  z-index: 1;
+`;
+
+const CopilotPoweredBy = styled.div`
+  font-size: 12px;
+  font-weight: 600;
+  color: #68737d;
+`;
+
+const CopilotDisclaimer = styled.div`
+  font-size: 12px;
+  color: #87929d;
+  line-height: 1.4;
+`;
+
 const CopilotInputArea = styled.div`
   padding: 16px 20px;
   background: ${({ theme }) => getColor({ theme, variable: 'background.default' })};
+  position: relative;
+  z-index: 2;
 `;
 
 const CopilotInputWrapper = styled.div`
@@ -797,6 +1204,7 @@ const CopilotInputWrapper = styled.div`
   border: 1px solid #d8dcde;
   border-radius: 28px;
   background: white;
+  transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
   
   &:focus-within {
     border-color: #1f73b7;
@@ -832,13 +1240,14 @@ const CopilotSendButton = styled.button`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: background 0.15s ease;
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background 150ms ease-out;
 
   &:hover {
     background: #1f292f;
   }
 
   &:active {
+    transform: scale(0.92);
     background: #0f1417;
   }
   
@@ -852,6 +1261,18 @@ const CopilotSendButton = styled.button`
 const UserMessage = styled.div`
   display: flex;
   justify-content: flex-end;
+  
+  /* Message entrance animation */
+  opacity: 1;
+  transform: translateY(0);
+  transition: 
+    opacity 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 `;
 
 const UserMessageBubble = styled.div`
@@ -868,6 +1289,18 @@ const CopilotLoadingMessage = styled.div`
   display: flex;
   gap: 12px;
   align-items: flex-start;
+  
+  /* Loading message entrance */
+  opacity: 1;
+  transform: translateY(0);
+  transition: 
+    opacity 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 `;
 
 const CopilotLoadingBubble = styled.div`
@@ -918,11 +1351,11 @@ const TypingIndicator = styled.div`
     height: 6px;
     background-color: #87929d;
     border-radius: 50%;
-    animation: typing 1.4s infinite ease-in-out;
+    animation: typing 1.2s infinite cubic-bezier(0.4, 0, 0.2, 1);
     
     &:nth-child(1) { animation-delay: 0s; }
-    &:nth-child(2) { animation-delay: 0.2s; }
-    &:nth-child(3) { animation-delay: 0.4s; }
+    &:nth-child(2) { animation-delay: 0.15s; }
+    &:nth-child(3) { animation-delay: 0.3s; }
   }
   
   @keyframes typing {
@@ -931,7 +1364,7 @@ const TypingIndicator = styled.div`
       opacity: 0.4;
     }
     30% {
-      transform: translateY(-4px);
+      transform: translateY(-5px);
       opacity: 1;
     }
   }
@@ -955,7 +1388,7 @@ const CopilotLoadingSpinner = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: pulse 1.5s ease-in-out infinite;
+  animation: pulse 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   
   svg {
     width: 24px;
@@ -969,8 +1402,8 @@ const CopilotLoadingSpinner = styled.div`
       opacity: 1;
     }
     50% {
-      transform: scale(1.1);
-      opacity: 0.8;
+      transform: scale(1.08);
+      opacity: 0.85;
     }
   }
 `;
@@ -1064,30 +1497,79 @@ const dataVariations = [
   },
 ];
 
-function Dashboard({ state, onStateChange, showAlertStates = true }) {
+function Dashboard({ state, onStateChange, showAlertStates = true, onResetPrototype }) {
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [showCopilot, setShowCopilot] = useState(false);
+  const [copilotMode, setCopilotMode] = useState('start'); // 'start' or 'investigate'
   const [copilotLoading, setCopilotLoading] = useState(false);
+  const [copilotStep, setCopilotStep] = useState('initial');
   const [alertDismissed, setAlertDismissed] = useState(false);
   const [updateCount, setUpdateCount] = useState(0);
+  const [reassignState, setReassignState] = useState('idle');
+  
+  const copilotContentRef = useRef(null);
 
-  // Handle copilot loading state
+  // Auto-scroll to bottom when new content appears
   useEffect(() => {
-    if (showCopilot) {
+    if (copilotContentRef.current) {
+      copilotContentRef.current.scrollTo({
+        top: copilotContentRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  }, [copilotStep, reassignState, copilotLoading]);
+
+  // Handle copilot loading state - only run once when first opened
+  useEffect(() => {
+    if (showCopilot && copilotStep === 'initial') {
       setCopilotLoading(true);
       const timer = setTimeout(() => {
         setCopilotLoading(false);
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [showCopilot]);
+  }, [showCopilot, copilotStep]);
+  
+  // Reset copilot state when closing
+  const handleCloseCopilot = () => {
+    setShowCopilot(false);
+    setCopilotStep('initial');
+    setCopilotLoading(false);
+  };
+  
+  // Handle "What should I do?" click
+  const handleWhatShouldIDo = () => {
+    // Immediately show user message and loading state
+    setCopilotStep('loading');
+    // After delay, show the recommendation
+    setTimeout(() => {
+      setCopilotStep('recommendation');
+    }, 1500);
+  };
   const data = BASELINE_STATE;
 
   // Get current data based on update count
   const currentVariation = updateCount === 0 ? null : dataVariations[(updateCount - 1) % 3];
   const metrics = currentVariation ? currentVariation.metrics : baselineMetrics;
   const escalationData = currentVariation ? currentVariation.escalation : baselineEscalation;
-  const queueDepthData = currentVariation ? currentVariation.queue : baselineQueue;
+  const baseQueueData = currentVariation ? currentVariation.queue : baselineQueue;
+  
+  // Get billing queue data for dynamic recommendation card
+  const billingQueueItem = baseQueueData.find(q => q.workstream === 'Billing');
+  const currentBillingCount = billingQueueItem?.count || 0;
+  const ticketsToReassign = Math.round(currentBillingCount * 0.5); // Reassign ~50% of tickets
+  const specialistsNeeded = Math.max(3, Math.round(ticketsToReassign / 6)); // ~6 tickets per specialist
+  const currentWaitTime = metrics.queueWaitTime || '8min';
+  const projectedWaitTime = '3min';
+  
+  // Apply action effect to queue data
+  const queueDepthData = reassignState === 'success' 
+    ? baseQueueData.map(q => 
+        q.workstream === 'Billing' 
+          ? { ...q, count: Math.round(q.count * 0.5), critical: false }
+          : q
+      )
+    : baseQueueData;
 
   const queueBarLabelContent = useCallback(
     (props) => {
@@ -1139,7 +1621,31 @@ function Dashboard({ state, onStateChange, showAlertStates = true }) {
     <DashboardWrapper>
       <DashboardMain>
         <DashboardContainer>
-          <DashboardToolbar />
+          <DashboardToolbar 
+            isCopilotOpen={showCopilot}
+            onToggleCopilot={() => {
+              if (showCopilot) {
+                setShowCopilot(false);
+              } else {
+                setCopilotMode('start');
+                setShowCopilot(true);
+                setShowRecommendations(false);
+              }
+            }}
+            onRefresh={() => {
+              if (onResetPrototype) {
+                onResetPrototype();
+              } else {
+                setReassignState('idle');
+                setCopilotStep('initial');
+                setCopilotMode('start');
+                setCopilotLoading(false);
+                setShowCopilot(false);
+                setShowRecommendations(false);
+                setAlertDismissed(false);
+              }
+            }} 
+          />
 
           <ContentArea>
             {!alertDismissed && (
@@ -1361,7 +1867,7 @@ function Dashboard({ state, onStateChange, showAlertStates = true }) {
 
                   <RecommendationActions>
                     <PrimaryActionButton>Reassign tickets</PrimaryActionButton>
-                    <InvestigateButton onClick={() => { setShowRecommendations(false); setShowCopilot(true); }}>
+                    <InvestigateButton onClick={() => { setShowRecommendations(false); setCopilotMode('investigate'); setShowCopilot(true); }}>
                       <svg viewBox="0 0 16 16">
                         <defs>
                           <linearGradient id="btnSparkle" x1="50%" y1="0%" x2="50%" y2="100%">
@@ -1419,15 +1925,60 @@ function Dashboard({ state, onStateChange, showAlertStates = true }) {
               <CopilotHeaderLeft>
                 <CopilotTitle>Monitoring assistant</CopilotTitle>
               </CopilotHeaderLeft>
-              <CopilotCloseButton type="button" aria-label="Close panel" onClick={() => setShowCopilot(false)}>
+              <CopilotCloseButton type="button" aria-label="Close panel" onClick={handleCloseCopilot}>
                 <svg width="16" height="16" viewBox="0 0 16 16" focusable="false" aria-hidden="true">
                   <path stroke="currentColor" strokeLinecap="round" d="M3 13L13 3m0 10L3 3" />
                 </svg>
               </CopilotCloseButton>
             </CopilotHeader>
             
-            {copilotLoading ? (
-              <CopilotContent>
+            {copilotMode === 'start' ? (
+              <>
+                <CopilotStartScreen>
+                  <CopilotStartContent>
+                    <CopilotStartIcon>
+                      <svg width="0" height="0" style={{ position: 'absolute' }}>
+                        <defs>
+                          <linearGradient id="startSparkleGradient" x1="50%" y1="0%" x2="50%" y2="100%">
+                            <stop offset="0%" stopColor="#DAC9FF" />
+                            <stop offset="42%" stopColor="#A33FE1" />
+                            <stop offset="100%" stopColor="#6743E1" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                      <SparkleStrokeIcon />
+                    </CopilotStartIcon>
+                    <CopilotStartTitle>How can I help?</CopilotStartTitle>
+                    <CopilotStartSuggestions>
+                      <CopilotSuggestionButton onClick={() => { setCopilotMode('investigate'); }}>
+                        What's causing the automated resolution drop?
+                      </CopilotSuggestionButton>
+                      <CopilotSuggestionButton onClick={() => { setCopilotMode('investigate'); }}>
+                        What should I do about this?
+                      </CopilotSuggestionButton>
+                      <CopilotSuggestionButton onClick={() => { setCopilotMode('investigate'); }}>
+                        What happens if I don't act?
+                      </CopilotSuggestionButton>
+                    </CopilotStartSuggestions>
+                  </CopilotStartContent>
+                  <CopilotStartFooter>
+                    <CopilotPoweredBy>Powered by AI</CopilotPoweredBy>
+                    <CopilotDisclaimer>AI content can be inaccurate or misleading.<br/>Review it carefully.</CopilotDisclaimer>
+                  </CopilotStartFooter>
+                </CopilotStartScreen>
+                <CopilotInputArea>
+                  <CopilotInputWrapper>
+                    <CopilotInput placeholder="Ask monitoring assistant" />
+                    <CopilotSendButton type="button" aria-label="Send message">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M8 3L8 13M8 3L4 7M8 3L12 7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </CopilotSendButton>
+                  </CopilotInputWrapper>
+                </CopilotInputArea>
+              </>
+            ) : copilotLoading ? (
+              <CopilotContent ref={copilotContentRef}>
                 <UserMessage>
                   <UserMessageBubble>Investigate with assistant</UserMessageBubble>
                 </UserMessage>
@@ -1460,7 +2011,7 @@ function Dashboard({ state, onStateChange, showAlertStates = true }) {
               </CopilotContent>
             ) : (
               <>
-                <CopilotContent>
+                <CopilotContent ref={copilotContentRef}>
                   <UserMessage>
                     <UserMessageBubble>Investigate with assistant</UserMessageBubble>
                   </UserMessage>
@@ -1477,14 +2028,129 @@ function Dashboard({ state, onStateChange, showAlertStates = true }) {
                         <p><strong>Why AI resolution is falling:</strong></p>
                         <p>Payment Declined inquiries are related to a merchant processing issue outside the AI agent's training. The AI handles standard scenarios (insufficient funds, expired cards) but can't resolve system-level payment gateway problems.</p>
                         <p>What would you like to explore?</p>
-                        <QuickReplyButtons>
-                          <QuickReplyButton>Has this happened recently?</QuickReplyButton>
-                          <QuickReplyButton>What happens if I don't act?</QuickReplyButton>
-                          <QuickReplyButton>What should I do?</QuickReplyButton>
-                        </QuickReplyButtons>
+                        {copilotStep === 'initial' && (
+                          <QuickReplyButtons>
+                            <QuickReplyButton>Has this happened recently?</QuickReplyButton>
+                            <QuickReplyButton>What happens if I don't act?</QuickReplyButton>
+                            <QuickReplyButton onClick={handleWhatShouldIDo}>What should I do?</QuickReplyButton>
+                          </QuickReplyButtons>
+                        )}
                       </CopilotMessageText>
                     </CopilotMessageBubble>
                   </CopilotMessage>
+                  
+                  {(copilotStep === 'loading' || copilotStep === 'recommendation') && (
+                    <UserMessage>
+                      <UserMessageBubble>What should I do?</UserMessageBubble>
+                    </UserMessage>
+                  )}
+                  
+                  {copilotStep === 'loading' && (
+                    <CopilotLoadingMessage>
+                      <CopilotLoadingBubble>
+                        <CopilotWorkingHeader>
+                          <svg viewBox="0 0 16 16">
+                            <defs>
+                              <linearGradient id="workingSparkle2" x1="50%" y1="0%" x2="50%" y2="100%">
+                                <stop offset="0%" stopColor="#DAC9FF" />
+                                <stop offset="42%" stopColor="#A33FE1" />
+                                <stop offset="100%" stopColor="#6743E1" />
+                              </linearGradient>
+                            </defs>
+                            <path fill="url(#workingSparkle2)" d="M2.499 11a.5.5 0 0 1 .477.348l.256.797a1.01 1.01 0 0 0 .63.633l.789.248a.5.5 0 0 1 .001.954l-.79.252a1.007 1.007 0 0 0-.63.633l-.252.787a.5.5 0 0 1-.95.008l-.266-.79a1.034 1.034 0 0 0-.636-.639l-.781-.252a.5.5 0 0 1-.002-.95l.794-.26a1.023 1.023 0 0 0 .636-.634l.248-.786A.5.5 0 0 1 2.5 11ZM1 7.513a1 1 0 0 1 .69-.953l2.583-.844a3.95 3.95 0 0 0 2.465-2.457l.808-2.56A1 1 0 0 1 9.452.695l.832 2.598a3.906 3.906 0 0 0 2.448 2.453l2.569.811a1 1 0 0 1 .004 1.906l-2.572.823a3.896 3.896 0 0 0-2.449 2.454l-.82 2.565a1 1 0 0 1-1.9.014l-.866-2.567v-.002A3.971 3.971 0 0 0 4.24 9.284l-2.547-.821A1 1 0 0 1 1 7.513Z"/>
+                          </svg>
+                          <CopilotWorkingText>Working</CopilotWorkingText>
+                        </CopilotWorkingHeader>
+                        <CopilotSkeletonRow>
+                          <StyledSkeleton height="12px" width="100%" />
+                        </CopilotSkeletonRow>
+                        <CopilotSkeletonRow>
+                          <StyledSkeleton height="12px" width="90%" />
+                        </CopilotSkeletonRow>
+                        <CopilotSkeletonRow>
+                          <StyledSkeleton height="12px" width="75%" />
+                        </CopilotSkeletonRow>
+                      </CopilotLoadingBubble>
+                    </CopilotLoadingMessage>
+                  )}
+                  
+                  {copilotStep === 'recommendation' && (
+                    <CopilotMessage>
+                      <CopilotMessageBubble>
+                        <CopilotMessageText>
+                          <p>Based on the analysis, here's what I recommend:</p>
+                          <CopilotRecCard>
+                            <CopilotRecHeader>Recommended action</CopilotRecHeader>
+                            <CopilotRecContent>
+                              <CopilotRecTitle>Reassign {ticketsToReassign} Payment Declined tickets to Tier 2 specialists</CopilotRecTitle>
+                              <CopilotRecSection>
+                                <CopilotRecSectionTitle>This addresses</CopilotRecSectionTitle>
+                                <CopilotRecList>
+                                  <li>Billing queue overflow ({currentBillingCount} total cases)</li>
+                                  <li>High wait times ({currentWaitTime} avg)</li>
+                                  <li>AI struggling (73% escalation rate)</li>
+                                </CopilotRecList>
+                              </CopilotRecSection>
+                              <CopilotRecSection>
+                                <CopilotRecSectionTitle>Expected impact</CopilotRecSectionTitle>
+                                <CopilotRecList>
+                                  <li>{specialistsNeeded} Tier 2 specialists will handle reassignment (~{Math.round(ticketsToReassign / specialistsNeeded)} tickets per agent)</li>
+                                  <li>Queue clears in: ~15min</li>
+                                  <li>Wait time: {currentWaitTime} → {projectedWaitTime} (↓67%)</li>
+                                </CopilotRecList>
+                              </CopilotRecSection>
+                              {reassignState === 'idle' && (
+                                <CopilotRecActions>
+                                  <CopilotRecButton 
+                                    onClick={() => {
+                                      setReassignState('loading');
+                                      setTimeout(() => setReassignState('success'), 1000);
+                                    }}
+                                  >
+                                    Reassign tickets
+                                  </CopilotRecButton>
+                                </CopilotRecActions>
+                              )}
+                              {reassignState === 'loading' && (
+                                <CopilotRecActions>
+                                  <CopilotRecButton disabled>
+                                    <LoadingSpinner />
+                                  </CopilotRecButton>
+                                </CopilotRecActions>
+                              )}
+                            </CopilotRecContent>
+                          </CopilotRecCard>
+                          <CopilotViewAllButton>View all recommendations</CopilotViewAllButton>
+                        </CopilotMessageText>
+                      </CopilotMessageBubble>
+                    </CopilotMessage>
+                  )}
+                  
+                  {reassignState === 'success' && (
+                    <CopilotMessage>
+                      <CopilotMessageBubble>
+                        <CopilotMessageText>
+                          <SuccessMessage>
+                            <SuccessHeader>
+                              <SuccessCheckmark>✓</SuccessCheckmark>
+                              Action applied
+                            </SuccessHeader>
+                            <SuccessDescription>
+                              {ticketsToReassign} <strong>Payment Declined</strong> tickets reassigned to {specialistsNeeded} Tier 2 specialists
+                            </SuccessDescription>
+                            <SuccessExpectations>
+                              <SuccessExpectationsTitle>You should see:</SuccessExpectationsTitle>
+                              <SuccessExpectationsList>
+                                <li>Queue depth dropping in ~5 min</li>
+                                <li>Wait times improving in ~10 min</li>
+                                <li>Containment rate stabilizing</li>
+                              </SuccessExpectationsList>
+                            </SuccessExpectations>
+                          </SuccessMessage>
+                        </CopilotMessageText>
+                      </CopilotMessageBubble>
+                    </CopilotMessage>
+                  )}
                 </CopilotContent>
 
                 <CopilotInputArea>

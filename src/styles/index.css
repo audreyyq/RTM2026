@@ -29,3 +29,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Override for Zendesk-UI navigation nav panel border-radius */
+[class*="sc-cbzrxj"],
+[class*="c-cbzrxj"] {
+  border-top-left-radius: 8px;
+}
+
+/* Override for Zendesk-UI navigation item label font-size */
+[class*="sc-hcmuJc"],
+[class*="c-hcmuJc"] {
+  font-size: 11px;
+}
+
+/* Override for Zendesk-UI user profile name font-size */
+[class*="sc-btldaI"],
+[class*="c-btldaI"] {
+  font-size: 14px;
+}
