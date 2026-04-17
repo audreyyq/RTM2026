@@ -911,7 +911,7 @@ function SlackScreen({ onViewDashboard }) {
               
               <Message>
                 <AppAvatar>
-                  <img src="/rtm2026/Logo.png" alt="Zendesk" />
+                  <img src={`${import.meta.env.BASE_URL}Logo.png`} alt="Zendesk" />
                 </AppAvatar>
                 <MessageContent>
                   <MessageHeader>
@@ -949,7 +949,7 @@ function SlackScreen({ onViewDashboard }) {
                 <NewAlertContainer>
                   <Message>
                     <AppAvatar>
-                      <img src="/rtm2026/Logo.png" alt="Zendesk" />
+                      <img src={`${import.meta.env.BASE_URL}Logo.png`} alt="Zendesk" />
                     </AppAvatar>
                     <MessageContent>
                       <MessageHeader>
