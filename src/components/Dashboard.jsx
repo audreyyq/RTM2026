@@ -3,11 +3,19 @@ import styled from 'styled-components';
 import { getColor } from '@zendeskgarden/react-theming';
 import { Skeleton } from '@zendeskgarden/react-loaders';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, LabelList } from 'recharts';
-import { Button } from '@zendeskgarden/react-buttons';
+import { Button, IconButton } from '@zendeskgarden/react-buttons';
 import { Alert, Title, Close } from '@zendeskgarden/react-notifications';
+import { Modal, Header, Body, Footer } from '@zendeskgarden/react-modals';
+import { Table, Head, HeaderRow, HeaderCell, Body as TableBody, Row as TableRow, Cell as TableCell } from '@zendeskgarden/react-tables';
+import { Checkbox, Field, Label } from '@zendeskgarden/react-forms';
+import { Menu, Item, Separator } from '@zendeskgarden/react-dropdowns';
+import { Tag } from '@zendeskgarden/react-tags';
 import { BASELINE_STATE } from '../data/dashboardData';
 import DashboardToolbar from './DashboardToolbar';
 import SparkleStrokeIcon from '@zendeskgarden/svg-icons/src/16/sparkle-stroke.svg?react';
+import OverflowVerticalIcon from '@zendeskgarden/svg-icons/src/16/overflow-vertical-stroke.svg?react';
+import DownloadIcon from '@zendeskgarden/svg-icons/src/16/download-stroke.svg?react';
+import ChevronDownIcon from '@zendeskgarden/svg-icons/src/16/chevron-down-stroke.svg?react';
 
 const DashboardWrapper = styled.div`
   display: flex;
@@ -123,6 +131,8 @@ const MetricCard = styled.div`
   background: white;
   border-radius: 8px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
   box-shadow: ${props => {
     if (props.$status === 'critical') return '0 2px 8px rgba(204, 51, 64, 0.15)';
     if (props.$status === 'warning') return '0 2px 8px rgba(247, 154, 62, 0.15)';
@@ -155,9 +165,16 @@ const MetricLabel = styled.div`
   margin-bottom: 8px;
 `;
 
+const MetricValueWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const MetricValue = styled.div`
-  font-size: 32px;
-  font-weight: 600;
+  font-size: ${props => props.$status === 'critical' ? '36px' : '32px'};
+  font-weight: 500;
   color: ${props => props.$status === 'critical' ? '#cc3340' : '#1f73b7'};
   display: inline-flex;
   align-items: baseline;
@@ -213,8 +230,8 @@ const AgentAvailabilityColumn = styled.div`
 `;
 
 const AgentAvailabilityFigure = styled.div`
-  font-size: 32px;
-  font-weight: 600;
+  font-size: 28px;
+  font-weight: 500;
   color: #1f73b7;
   line-height: 1.15;
 `;
@@ -257,7 +274,7 @@ const SlaStatusItem = styled.div`
 
 const SlaStatusValue = styled.div`
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 500;
   color: ${props => {
     if (props.$status === 'breached') return '#cc3340';
     if (props.$status === 'nearing') return '#E9AD4D';
@@ -572,7 +589,7 @@ const RecommendationList = styled.ul`
   padding-left: 1.25em;
   font-size: 13px;
   color: #2f3941;
-  line-height: 1.6;
+  line-height: 1.3;
   list-style: disc outside;
   list-style-type: disc;
 
@@ -821,7 +838,7 @@ const CopilotMessageText = styled.div`
   }
   
   ul {
-    margin: 8px 0;
+    margin: 8px 0 16px 0;
     padding-left: 20px;
     list-style-type: disc;
   }
@@ -1095,16 +1112,16 @@ const CopilotStartScreen = styled.div`
 
 const CopilotStartGradient = styled.div`
   position: absolute;
-  bottom: -100px;
+  bottom: -150px;
   left: 50%;
   transform: translateX(-50%);
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(218, 201, 255, 1) 0%, rgba(163, 63, 225, 0.7) 42%, rgba(103, 67, 225, 0.4) 100%);
-  filter: blur(80px);
+  background: radial-gradient(circle, rgba(218, 201, 255, 1) 0%, rgba(163, 63, 225, 0.8) 42%, rgba(103, 67, 225, 0.5) 100%);
+  filter: blur(100px);
   pointer-events: none;
-  opacity: 0.3;
+  opacity: 0.4;
   z-index: 0;
 `;
 
@@ -1414,14 +1431,248 @@ const CopilotLoadingText = styled.div`
   text-align: center;
 `;
 
+// Modal Styles
+const ModalHeaderRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const ModalHeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
+const ModalTitle = styled.span`
+  font-size: 14px;
+  font-weight: 600;
+  color: #2f3941;
+`;
+
+const ModalSubtitle = styled.span`
+  font-size: 12px;
+  color: #68737d;
+`;
+
+const FilterTag = styled.span`
+  font-size: 12px;
+  color: #1f73b7;
+  cursor: pointer;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const DownloadButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #1f73b7;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  
+  &:hover {
+    background-color: #f5faff;
+  }
+  
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+`;
+
+const BulkActionBar = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background-color: #edf7ff;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  border-top: 1px solid #d8dcde;
+`;
+
+const BulkActionText = styled.span`
+  font-size: 14px;
+  color: #2f3941;
+`;
+
+const TableWrapper = styled.div`
+  max-height: 500px;
+  overflow: auto;
+  padding-bottom: ${({ $hasSelection }) => $hasSelection ? '60px' : '0'};
+  
+  table {
+    width: 100%;
+    min-width: 1200px;
+    table-layout: fixed;
+  }
+  
+  th, td {
+    font-size: 12px !important;
+    vertical-align: middle;
+  }
+  
+  /* Center-align checkbox cells */
+  th:first-child,
+  td:first-child {
+    text-align: center;
+    
+    [data-garden-id="forms.field"] {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  
+  /* Apply text truncation only to cells that don't contain interactive elements */
+  th:not(:first-child):not(:last-child),
+  td:not(:first-child):not(:last-child) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Ensure checkbox cells have enough space and aren't clipped */
+  th:first-child,
+  td:first-child,
+  th:last-child,
+  td:last-child {
+    overflow: visible;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Ensure checkboxes are fully clickable */
+  [data-garden-id="forms.checkbox"],
+  [data-garden-id="forms.checkbox_label"],
+  [data-garden-id="forms.field"] {
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    pointer-events: auto;
+  }
+  
+  /* Ensure checkbox input is clickable */
+  input[type="checkbox"] {
+    cursor: pointer;
+    pointer-events: auto;
+  }
+`;
+
+const TicketLink = styled.a`
+  color: #1f73b7;
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const OutcomeTag = styled(Tag)`
+  background-color: #cc3340 !important;
+  color: white !important;
+`;
+
+const ActionMenu = styled.div`
+  position: relative;
+  
+  /* Ensure dropdown menu isn't constrained by table cell width */
+  [data-garden-id="dropdowns.menu"] {
+    min-width: 120px;
+    white-space: nowrap;
+  }
+`;
+
+// Escalation table data - 68 tickets
+const escalationTableData = [
+  { id: '11239', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '1min 32sec', language: 'POL' },
+  { id: '12345', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues +1 more', duration: '1min 32sec', language: 'ENG' },
+  { id: '19876', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Payment issues', duration: '1min 32sec', language: 'ENG' },
+  { id: '20567', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Payment issues', duration: '0min 45sec', language: 'ENG' },
+  { id: '22345', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Product Feedback', duration: '2min 50sec', language: 'POL' },
+  { id: '30001', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Payment issues +1 more', duration: '1min 3sec', language: 'ITA' },
+  { id: '30003', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Payment issues', duration: '1min 16sec', language: 'ENG' },
+  { id: '30005', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '3min 50sec', language: 'POL' },
+  { id: '30007', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Cancellation Requests', duration: '2min 38sec', language: 'ITA' },
+  { id: '30009', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Payment issues', duration: '4min 25sec', language: 'ENG' },
+  { id: '30011', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Shipping Status Inquiry', duration: '3min 6sec', language: 'POL' },
+  { id: '30013', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues +1 more', duration: '4min 46sec', language: 'ITA' },
+  { id: '30015', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Payment issues', duration: '3min 32sec', language: 'ENG' },
+  { id: '30017', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Cancellation Requests', duration: '2min 35sec', language: 'POL' },
+  { id: '30019', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Payment issues', duration: '4min 54sec', language: 'ITA' },
+  { id: '30021', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Product Feedback', duration: '4min 5sec', language: 'ENG' },
+  { id: '30023', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Shipping Status Inquiry', duration: '3min 20sec', language: 'POL' },
+  { id: '30025', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues', duration: '2min 15sec', language: 'ENG' },
+  { id: '30027', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues +1 more', duration: '1min 48sec', language: 'ITA' },
+  { id: '30029', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '3min 12sec', language: 'POL' },
+  { id: '30031', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '2min 45sec', language: 'ENG' },
+  { id: '30033', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '4min 20sec', language: 'ITA' },
+  { id: '30035', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '1min 55sec', language: 'POL' },
+  { id: '30037', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '3min 38sec', language: 'ENG' },
+  { id: '30039', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '2min 22sec', language: 'ITA' },
+  { id: '30041', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '4min 10sec', language: 'POL' },
+  { id: '30043', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '1min 35sec', language: 'ENG' },
+  { id: '30045', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '3min 50sec', language: 'ITA' },
+  { id: '30047', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '2min 28sec', language: 'POL' },
+  { id: '30049', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '4min 5sec', language: 'ENG' },
+  { id: '30051', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '1min 42sec', language: 'ITA' },
+  { id: '30053', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '3min 18sec', language: 'POL' },
+  { id: '30055', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '2min 55sec', language: 'ENG' },
+  { id: '30057', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '4min 32sec', language: 'ITA' },
+  { id: '30059', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '1min 20sec', language: 'POL' },
+  { id: '30061', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '3min 45sec', language: 'ENG' },
+  { id: '30063', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '2min 10sec', language: 'ITA' },
+  { id: '30065', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '4min 48sec', language: 'POL' },
+  { id: '30067', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '1min 58sec', language: 'ENG' },
+  { id: '30069', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '3min 25sec', language: 'ITA' },
+  { id: '30071', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '2min 40sec', language: 'POL' },
+  { id: '30073', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '4min 15sec', language: 'ENG' },
+  { id: '30075', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '1min 30sec', language: 'ITA' },
+  { id: '30077', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '3min 55sec', language: 'POL' },
+  { id: '30079', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '2min 18sec', language: 'ENG' },
+  { id: '30081', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '4min 42sec', language: 'ITA' },
+  { id: '30083', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '1min 45sec', language: 'POL' },
+  { id: '30085', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '3min 30sec', language: 'ENG' },
+  { id: '30087', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '2min 5sec', language: 'ITA' },
+  { id: '30089', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '4min 28sec', language: 'POL' },
+  { id: '30091', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '1min 52sec', language: 'ENG' },
+  { id: '30093', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '3min 15sec', language: 'ITA' },
+  { id: '30095', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '2min 48sec', language: 'POL' },
+  { id: '30097', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '4min 8sec', language: 'ENG' },
+  { id: '30099', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '1min 38sec', language: 'ITA' },
+  { id: '30101', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '3min 58sec', language: 'POL' },
+  { id: '30103', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '2min 25sec', language: 'ENG' },
+  { id: '30105', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '4min 35sec', language: 'ITA' },
+  { id: '30107', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '1min 28sec', language: 'POL' },
+  { id: '30109', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '3min 42sec', language: 'ENG' },
+  { id: '30111', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '2min 12sec', language: 'ITA' },
+  { id: '30113', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '4min 52sec', language: 'POL' },
+  { id: '30115', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '1min 15sec', language: 'ENG' },
+  { id: '30117', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '3min 28sec', language: 'ITA' },
+  { id: '30119', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '2min 55sec', language: 'POL' },
+  { id: '30121', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '4min 18sec', language: 'ENG' },
+  { id: '30123', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '1min 48sec', language: 'ITA' },
+  { id: '30125', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '2min 32sec', language: 'ENG' },
+];
+
 // Baseline data
 const baselineMetrics = {
   totalConversations: 65,
-  automatedResolution: 58,
+  automatedResolution: 44,
   queueWaitTime: '8min',
-  agentsAvailable: 5,
-  agentsScheduledTotal: 15,
-  agentSpareCapacityPercent: 33,
+  agentsAvailable: 21,
+  agentsScheduledTotal: 42,
+  agentSpareCapacityPercent: 36,
   avgFirstAssignment: '2.4min',
   avgResolutionTime: '8.2min',
   slaCompliance: 76,
@@ -1431,7 +1682,7 @@ const baselineMetrics = {
 };
 
 const baselineEscalation = [
-  { intent: 'Payment Declined', rate: 73, critical: true },
+  { intent: 'Payment issues', rate: 73, critical: true },
   { intent: 'Account Access', rate: 45, critical: false },
   { intent: 'Refund Request', rate: 28, critical: false },
   { intent: 'General Billing', rate: 18, critical: false },
@@ -1448,9 +1699,9 @@ const baselineQueue = [
 // Data variations (slight shifts)
 const dataVariations = [
   {
-    metrics: { ...baselineMetrics, totalConversations: 68, automatedResolution: 56, slaBreached: 6, slaNearing: 11 },
+    metrics: { ...baselineMetrics, totalConversations: 68, automatedResolution: 42, slaBreached: 6, slaNearing: 11 },
     escalation: [
-      { intent: 'Payment Declined', rate: 75, critical: true },
+      { intent: 'Payment issues', rate: 75, critical: true },
       { intent: 'Account Access', rate: 43, critical: false },
       { intent: 'Refund Request', rate: 30, critical: false },
       { intent: 'General Billing', rate: 17, critical: false },
@@ -1464,9 +1715,9 @@ const dataVariations = [
     ],
   },
   {
-    metrics: { ...baselineMetrics, totalConversations: 72, automatedResolution: 55, queueWaitTime: '9min', slaBreached: 7, slaNearing: 13 },
+    metrics: { ...baselineMetrics, totalConversations: 72, automatedResolution: 41, queueWaitTime: '9min', slaBreached: 7, slaNearing: 13 },
     escalation: [
-      { intent: 'Payment Declined', rate: 78, critical: true },
+      { intent: 'Payment issues', rate: 78, critical: true },
       { intent: 'Account Access', rate: 47, critical: false },
       { intent: 'Refund Request', rate: 26, critical: false },
       { intent: 'General Billing', rate: 20, critical: false },
@@ -1480,9 +1731,9 @@ const dataVariations = [
     ],
   },
   {
-    metrics: { ...baselineMetrics, totalConversations: 70, automatedResolution: 54, queueWaitTime: '10min', slaBreached: 8, slaNearing: 14, slaWithin: 26 },
+    metrics: { ...baselineMetrics, totalConversations: 70, automatedResolution: 40, queueWaitTime: '10min', slaBreached: 8, slaNearing: 14, slaWithin: 26 },
     escalation: [
-      { intent: 'Payment Declined', rate: 80, critical: true },
+      { intent: 'Payment issues', rate: 80, critical: true },
       { intent: 'Account Access', rate: 48, critical: false },
       { intent: 'Refund Request', rate: 25, critical: false },
       { intent: 'General Billing', rate: 22, critical: false },
@@ -1506,6 +1757,10 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
   const [alertDismissed, setAlertDismissed] = useState(false);
   const [updateCount, setUpdateCount] = useState(0);
   const [reassignState, setReassignState] = useState('idle');
+  const [selectedGroup, setSelectedGroup] = useState('ALL');
+  const [showEscalationModal, setShowEscalationModal] = useState(false);
+  const [selectedTickets, setSelectedTickets] = useState([]);
+  const [openMenuId, setOpenMenuId] = useState(null);
   
   const copilotContentRef = useRef(null);
 
@@ -1550,9 +1805,19 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
 
   // Get current data based on update count
   const currentVariation = updateCount === 0 ? null : dataVariations[(updateCount - 1) % 3];
-  const metrics = currentVariation ? currentVariation.metrics : baselineMetrics;
+  const baseMetrics = currentVariation ? currentVariation.metrics : baselineMetrics;
   const escalationData = currentVariation ? currentVariation.escalation : baselineEscalation;
   const baseQueueData = currentVariation ? currentVariation.queue : baselineQueue;
+  
+  // Override agent metrics when Tier 2 specialist is selected
+  const metrics = selectedGroup === 'Tier 2 specialist'
+    ? { 
+        ...baseMetrics, 
+        agentsAvailable: reassignState === 'success' ? 0 : 4, 
+        agentsScheduledTotal: 12, 
+        agentSpareCapacityPercent: reassignState === 'success' ? 0 : 42 
+      }
+    : baseMetrics;
   
   // Get billing queue data for dynamic recommendation card
   const billingQueueItem = baseQueueData.find(q => q.workstream === 'Billing');
@@ -1644,7 +1909,9 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
                 setShowRecommendations(false);
                 setAlertDismissed(false);
               }
-            }} 
+            }}
+            selectedGroup={selectedGroup}
+            onGroupChange={setSelectedGroup}
           />
 
           <ContentArea>
@@ -1653,7 +1920,7 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
               <Alert type="warning">
                 <AlertRow>
                   <div>
-                    <Title>Anomaly detected: Automated resolution dropped to 58% · Payment Declined +340%</Title>
+                    <Title>Escalation rate increased to 44% · Payment issues +340%</Title>
                     <AlertTimestamp>Detected 2 min ago</AlertTimestamp>
                   </div>
                   <Button size="small" onClick={() => { setShowCopilot(false); setShowRecommendations(true); }}>View recommendations</Button>
@@ -1669,11 +1936,12 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
             <Row>
               <MetricCard style={{ flex: 1 }}>
                 <MetricLabel>Total conversations</MetricLabel>
-                <MetricValue>
-                  {metrics.totalConversations}
-                  <MetricChange $negative>(+{Math.round((metrics.totalConversations - 40) / 40 * 100)}%)</MetricChange>
-                </MetricValue>
-                <MetricSubtext>Baseline: 40</MetricSubtext>
+                <MetricValueWrapper>
+                  <MetricValue>
+                    {metrics.totalConversations}
+                    <MetricChange $negative>(+{Math.round((metrics.totalConversations - 40) / 40 * 100)}%)</MetricChange>
+                  </MetricValue>
+                </MetricValueWrapper>
               </MetricCard>
               <MetricCard $status={showAlertStates ? 'critical' : undefined} style={{ flex: 1 }}>
                 {showAlertStates && (
@@ -1683,15 +1951,16 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
                   </svg>
                 </AlertIconBadge>
                 )}
-                <MetricLabel>Automated resolution</MetricLabel>
-                <MetricValue $status={showAlertStates ? 'critical' : undefined}>
-                  {metrics.automatedResolution}%
-                  <MetricChange $negative={showAlertStates}>↓</MetricChange>
-                </MetricValue>
-                <MetricSubtext>Baseline: 78%</MetricSubtext>
+                <MetricLabel>Escalation rate</MetricLabel>
+                <MetricValueWrapper>
+                  <MetricValue $status={showAlertStates ? 'critical' : undefined} onClick={() => setShowEscalationModal(true)}>
+                    {metrics.automatedResolution}%
+                    <MetricChange $negative={showAlertStates}>↑</MetricChange>
+                  </MetricValue>
+                </MetricValueWrapper>
               </MetricCard>
               <ChartCard style={{ flex: 1 }}>
-                <ChartTitle>Escalation rate by intent</ChartTitle>
+                <ChartTitle>Escalation rate by use case</ChartTitle>
                 <RankedList>
                   {escalationData.map((entry, index) => {
                     const rowCritical = showAlertStates && entry.critical;
@@ -1753,29 +2022,32 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
                   </AlertIconBadge>
                   )}
                   <MetricLabel>Queue avg wait time</MetricLabel>
-                  <MetricValue $status={showAlertStates ? 'critical' : undefined}>
-                    {metrics.queueWaitTime}
-                    <MetricChange $negative={showAlertStates}>↑</MetricChange>
-                  </MetricValue>
-                  <MetricSubtext>Baseline: 2 min</MetricSubtext>
+                  <MetricValueWrapper>
+                    <MetricValue $status={showAlertStates ? 'critical' : undefined}>
+                      {metrics.queueWaitTime}
+                      <MetricChange $negative={showAlertStates}>↑</MetricChange>
+                    </MetricValue>
+                  </MetricValueWrapper>
                 </MetricCard>
 
                 <MetricCard>
                   <MetricLabel>Agent availability</MetricLabel>
-                  <AgentAvailabilityRow>
-                    <AgentAvailabilityColumn>
-                      <AgentAvailabilityFigure>
-                        {metrics.agentsAvailable}/{metrics.agentsScheduledTotal}
-                      </AgentAvailabilityFigure>
-                      <AgentAvailabilityCaption>Available</AgentAvailabilityCaption>
-                    </AgentAvailabilityColumn>
-                    <AgentAvailabilityColumn>
-                      <AgentAvailabilityFigure>
-                        {metrics.agentSpareCapacityPercent}%
-                      </AgentAvailabilityFigure>
-                      <AgentAvailabilityCaption>Spare Capacity</AgentAvailabilityCaption>
-                    </AgentAvailabilityColumn>
-                  </AgentAvailabilityRow>
+                  <MetricValueWrapper>
+                    <AgentAvailabilityRow>
+                      <AgentAvailabilityColumn>
+                        <AgentAvailabilityFigure>
+                          {metrics.agentsAvailable}/{metrics.agentsScheduledTotal}
+                        </AgentAvailabilityFigure>
+                        <AgentAvailabilityCaption>Available</AgentAvailabilityCaption>
+                      </AgentAvailabilityColumn>
+                      <AgentAvailabilityColumn>
+                        <AgentAvailabilityFigure>
+                          {metrics.agentSpareCapacityPercent}%
+                        </AgentAvailabilityFigure>
+                        <AgentAvailabilityCaption>Spare Capacity</AgentAvailabilityCaption>
+                      </AgentAvailabilityColumn>
+                    </AgentAvailabilityRow>
+                  </MetricValueWrapper>
                 </MetricCard>
               </MetricCardsColumn>
 
@@ -1853,16 +2125,15 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
                 <RecommendationBody>
                   <RecommendationSectionLabel>This addresses:</RecommendationSectionLabel>
                   <RecommendationList>
-                    <li>40 Payment Declined tickets in Billing queue (89 total cases)</li>
-                    <li>High wait times (9 min)</li>
-                    <li>AI struggling with <strong>Payment Declined</strong> (73% escalation rate)</li>
+                    <li>26 Payment Declined tickets in Billing queue</li>
+                    <li>High queue wait times</li>
+                    <li>AI agents are struggling with <strong>Payment Declined</strong></li>
                   </RecommendationList>
                   
                   <RecommendationSectionLabel>Expected impact:</RecommendationSectionLabel>
                   <RecommendationList>
-                    <li>Queue clears in: 15min</li>
-                    <li>Wait time: 9:00 → 3:00 (↓67%)</li>
-                    <li>Resolution rate improves</li>
+                    <li>Billing queue clears in: 15min</li>
+                    <li>Queue wait time: 9:00 → 3:00 (↓67%)</li>
                   </RecommendationList>
 
                   <RecommendationActions>
@@ -1888,8 +2159,8 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
               <RecommendationCard>
                 <RecommendationHeader>
                   <RecommendationTitle>
-                    <RecommendationTitleText>Request backup coverage</RecommendationTitleText>
-                    <RecommendationPreview>Estimated clear time: 30min · Wait time reduces to: ~2.5min</RecommendationPreview>
+                    <RecommendationTitleText>Assign Billing skill to available agents</RecommendationTitleText>
+                    <RecommendationPreview>Increases capacity by ~25%</RecommendationPreview>
                   </RecommendationTitle>
                   <RecommendationChevron>
                     <svg width="16" height="16" viewBox="0 0 16 16" focusable="false">
@@ -1903,8 +2174,8 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
               <RecommendationCard>
                 <RecommendationHeader>
                   <RecommendationTitle>
-                    <RecommendationTitleText>Send customer update</RecommendationTitleText>
-                    <RecommendationPreview>Customers informed · Reduces duplicate contacts by ~30%</RecommendationPreview>
+                    <RecommendationTitleText>Increase agent capacity (3 → 4 chats)</RecommendationTitleText>
+                    <RecommendationPreview>Temporary boost: +33% throughput</RecommendationPreview>
                   </RecommendationTitle>
                   <RecommendationChevron>
                     <svg width="16" height="16" viewBox="0 0 16 16" focusable="false">
@@ -2018,19 +2289,25 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
                   <CopilotMessage>
                     <CopilotMessageBubble>
                       <CopilotMessageText>
-                        <p>Here's what's happening with the <strong>Payment Declined</strong> anomaly:</p>
                         <p><strong>What's happening:</strong></p>
                         <ul>
-                          <li>AI resolution dropped from <strong>78% → 58%</strong></li>
-                          <li>Payment Declined intent volume spiked <strong>+340%</strong> in the last 30 minutes</li>
-                          <li>AI agents are escalating <strong>73%</strong> of Payment Declined cases (vs. 22% baseline)</li>
+                          <li>AI resolution rate dropped from <strong>78% → 58%</strong></li>
+                          <li>Escalation rate increased to <strong>42%</strong> (baseline: 22%)</li>
+                          <li>Billing queue: <strong>52 cases</strong> (baseline: 8)</li>
                         </ul>
-                        <p><strong>Why AI resolution is falling:</strong></p>
-                        <p>Payment Declined inquiries are related to a merchant processing issue outside the AI agent's training. The AI handles standard scenarios (insufficient funds, expired cards) but can't resolve system-level payment gateway problems.</p>
+                        <p><strong>Root cause:</strong></p>
+                        <p>Payment Declined topic is driving the spike:</p>
+                        <ul>
+                          <li>Payment Declined volume spiked <strong>+340%</strong> in the last 30 minutes</li>
+                          <li>AI agents are escalating <strong>73%</strong> of Payment Declined tickets (vs. 22% baseline)</li>
+                          <li>Accounts for <strong>~50%</strong> of current escalations</li>
+                        </ul>
+                        <p><strong>Why escalation rates are spiking:</strong></p>
+                        <p>Payment Declined cases involve merchant processing issues outside AI training. AI handles standard scenarios (insufficient funds, expired cards) but can't resolve system-level payment gateway problems.</p>
                         <p>What would you like to explore?</p>
                         {copilotStep === 'initial' && (
                           <QuickReplyButtons>
-                            <QuickReplyButton>Has this happened recently?</QuickReplyButton>
+                            <QuickReplyButton>Show similar past incidents</QuickReplyButton>
                             <QuickReplyButton>What happens if I don't act?</QuickReplyButton>
                             <QuickReplyButton onClick={handleWhatShouldIDo}>What should I do?</QuickReplyButton>
                           </QuickReplyButtons>
@@ -2082,21 +2359,21 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
                           <CopilotRecCard>
                             <CopilotRecHeader>Recommended action</CopilotRecHeader>
                             <CopilotRecContent>
-                              <CopilotRecTitle>Reassign {ticketsToReassign} Payment Declined tickets to Tier 2 specialists</CopilotRecTitle>
+                              <CopilotRecTitle>Reassign 26 Payment Declined tickets to Tier 2 specialists</CopilotRecTitle>
                               <CopilotRecSection>
                                 <CopilotRecSectionTitle>This addresses</CopilotRecSectionTitle>
                                 <CopilotRecList>
-                                  <li>Billing queue overflow ({currentBillingCount} total cases)</li>
-                                  <li>High wait times ({currentWaitTime} avg)</li>
+                                  <li>Billing queue overflow (45 total tickets)</li>
+                                  <li>High queue wait times (9min avg)</li>
                                   <li>AI struggling (73% escalation rate)</li>
                                 </CopilotRecList>
                               </CopilotRecSection>
                               <CopilotRecSection>
                                 <CopilotRecSectionTitle>Expected impact</CopilotRecSectionTitle>
                                 <CopilotRecList>
-                                  <li>{specialistsNeeded} Tier 2 specialists will handle reassignment (~{Math.round(ticketsToReassign / specialistsNeeded)} tickets per agent)</li>
+                                  <li>4 Tier 2 specialists will handle reassignment (~6 tickets per agent)</li>
                                   <li>Queue clears in: ~15min</li>
-                                  <li>Wait time: {currentWaitTime} → {projectedWaitTime} (↓67%)</li>
+                                  <li>Queue wait time: 9min → 3min (↓67%)</li>
                                 </CopilotRecList>
                               </CopilotRecSection>
                               {reassignState === 'idle' && (
@@ -2120,7 +2397,9 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
                               )}
                             </CopilotRecContent>
                           </CopilotRecCard>
-                          <CopilotViewAllButton>View all recommendations</CopilotViewAllButton>
+                          {reassignState !== 'success' && (
+                            <CopilotViewAllButton>View all recommendations</CopilotViewAllButton>
+                          )}
                         </CopilotMessageText>
                       </CopilotMessageBubble>
                     </CopilotMessage>
@@ -2136,14 +2415,14 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
                               Action applied
                             </SuccessHeader>
                             <SuccessDescription>
-                              {ticketsToReassign} <strong>Payment Declined</strong> tickets reassigned to {specialistsNeeded} Tier 2 specialists
+                              26 <strong>Payment Declined</strong> tickets reassigned to 4 Tier 2 specialists
                             </SuccessDescription>
                             <SuccessExpectations>
                               <SuccessExpectationsTitle>You should see:</SuccessExpectationsTitle>
                               <SuccessExpectationsList>
-                                <li>Queue depth dropping in ~5 min</li>
-                                <li>Wait times improving in ~10 min</li>
-                                <li>Containment rate stabilizing</li>
+                                <li>Queue volume dropping in ~5 min</li>
+                                <li>Queue wait times improving in ~10min</li>
+                                <li>SLA compliance improving</li>
                               </SuccessExpectationsList>
                             </SuccessExpectations>
                           </SuccessMessage>
@@ -2169,6 +2448,134 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
             )}
           </CopilotPanel>
         </CopilotPanelWrap>
+      )}
+
+      {showEscalationModal && (
+        <Modal isLarge onClose={() => { setShowEscalationModal(false); setSelectedTickets([]); }} style={{ width: '95vw', maxWidth: '1800px' }}>
+          <Header style={{ padding: '20px 24px' }}>
+            <ModalHeaderRow>
+              <ModalHeaderLeft>
+                <ModalTitle>Escalation rate</ModalTitle>
+              </ModalHeaderLeft>
+              <DownloadButton>
+                <DownloadIcon />
+                Download
+              </DownloadButton>
+            </ModalHeaderRow>
+          </Header>
+          <Body style={{ padding: '12px 24px 24px', position: 'relative' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+              <ModalSubtitle>68 tickets</ModalSubtitle>
+            </div>
+            
+            <TableWrapper $hasSelection={selectedTickets.length > 0}>
+              <Table size="small">
+                <Head>
+                  <HeaderRow>
+                    <HeaderCell style={{ width: '40px' }}>
+                      <Field>
+                        <Checkbox
+                          checked={selectedTickets.length === escalationTableData.length}
+                          indeterminate={selectedTickets.length > 0 && selectedTickets.length < escalationTableData.length}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSelectedTickets(escalationTableData.map(t => t.id));
+                            } else {
+                              setSelectedTickets([]);
+                            }
+                          }}
+                        >
+                          <Label hidden>Select all</Label>
+                        </Checkbox>
+                      </Field>
+                    </HeaderCell>
+                    <HeaderCell style={{ width: '75px' }}>Ticket ID</HeaderCell>
+                    <HeaderCell style={{ width: '100px' }}>AI agent</HeaderCell>
+                    <HeaderCell style={{ width: '70px' }}>Channel</HeaderCell>
+                    <HeaderCell style={{ width: '120px' }}>Conversation state</HeaderCell>
+                    <HeaderCell style={{ width: '130px' }}>Automation outcome</HeaderCell>
+                    <HeaderCell style={{ width: '90px' }}>Segment</HeaderCell>
+                    <HeaderCell style={{ width: '90px' }}>Use case</HeaderCell>
+                    <HeaderCell style={{ width: '70px' }}>Duration</HeaderCell>
+                    <HeaderCell style={{ width: '70px' }}>Language</HeaderCell>
+                    <HeaderCell style={{ width: '50px' }}>Actions</HeaderCell>
+                  </HeaderRow>
+                </Head>
+                <TableBody>
+                  {escalationTableData.map((ticket) => (
+                    <TableRow key={ticket.id} isSelected={selectedTickets.includes(ticket.id)}>
+                      <TableCell isMinimum>
+                        <Field>
+                          <Checkbox
+                            checked={selectedTickets.includes(ticket.id)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setSelectedTickets([...selectedTickets, ticket.id]);
+                              } else {
+                                setSelectedTickets(selectedTickets.filter(id => id !== ticket.id));
+                              }
+                            }}
+                          >
+                            <Label hidden>Select ticket {ticket.id}</Label>
+                          </Checkbox>
+                        </Field>
+                      </TableCell>
+                      <TableCell>
+                        <TicketLink href="#">{ticket.id}</TicketLink>
+                      </TableCell>
+                      <TableCell>{ticket.aiAgent}</TableCell>
+                      <TableCell>{ticket.channel}</TableCell>
+                      <TableCell>{ticket.state}</TableCell>
+                      <TableCell>
+                        <OutcomeTag size="small">{ticket.outcome}</OutcomeTag>
+                      </TableCell>
+                      <TableCell>{ticket.segment}</TableCell>
+                      <TableCell>{ticket.useCase}</TableCell>
+                      <TableCell>{ticket.duration}</TableCell>
+                      <TableCell>{ticket.language}</TableCell>
+                      <TableCell isMinimum>
+                        <ActionMenu>
+                          <Menu
+                            button={(props) => (
+                              <IconButton {...props} size="small" focusInset>
+                                <OverflowVerticalIcon />
+                              </IconButton>
+                            )}
+                          >
+                            <Item value="assign">Assign</Item>
+                            <Item value="observe">Observe</Item>
+                          </Menu>
+                        </ActionMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableWrapper>
+            
+            {selectedTickets.length > 0 && (
+              <BulkActionBar>
+                <BulkActionText>{selectedTickets.length} selected</BulkActionText>
+                <Menu
+                  button={(props) => (
+                    <Button {...props} size="small" isBasic>
+                      Assign
+                      <Button.EndIcon>
+                        <ChevronDownIcon />
+                      </Button.EndIcon>
+                    </Button>
+                  )}
+                >
+                  <Item value="agent1">Assign to Agent 1</Item>
+                  <Item value="agent2">Assign to Agent 2</Item>
+                  <Item value="agent3">Assign to Agent 3</Item>
+                  <Separator />
+                  <Item value="unassigned">Unassign</Item>
+                </Menu>
+              </BulkActionBar>
+            )}
+          </Body>
+        </Modal>
       )}
     </DashboardWrapper>
   );

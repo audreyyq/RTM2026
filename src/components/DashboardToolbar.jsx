@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState, useRef, useEffect } from 'react';
+import styled from 'styled-components'
 import { Button } from '@zendeskgarden/react-buttons';
 
 const ReloadIcon = "https://www.figma.com/api/mcp/asset/6b423ed7-0b44-4102-b6a0-5060f6f53387";
@@ -168,7 +168,135 @@ const FilterValue = styled.span`
   font-weight: 600;
 `;
 
-function DashboardToolbar({ isCopilotOpen, onToggleCopilot, onRefresh }) {
+const FilterButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 33px;
+  padding: 8px 28px 8px 28px;
+  border: 1px solid #d8dcde;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 12px;
+  cursor: pointer;
+  color: #2f3941;
+  position: relative;
+
+  &:hover {
+    border-color: #87929d;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #1f73b7;
+    box-shadow: 0 0 0 3px rgba(31, 115, 183, 0.2);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 3h8M3 6h6M4 9h4' stroke='%23687782' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%23293239' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+`;
+
+const groupOptions = [
+  { value: 'Billing', label: 'Billing' },
+  { value: 'Technical Support', label: 'Technical Support' },
+  { value: 'Tier 2 specialist', label: 'Tier 2 specialist' },
+  { value: 'Account Management', label: 'Account Management' },
+  { value: 'General Inquiry', label: 'General Inquiry' },
+];
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  min-width: 200px;
+  background: white;
+  border: 1px solid #d8dcde;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  padding: 4px 0;
+`;
+
+const DropdownItem = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #2f3941;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #f8f9f9;
+  }
+`;
+
+const Checkbox = styled.input.attrs({ type: 'checkbox' })`
+  width: 16px;
+  height: 16px;
+  accent-color: #1f73b7;
+  cursor: pointer;
+`;
+
+const FilterWrapper = styled.div`
+  position: relative;
+`;
+
+function DashboardToolbar({ isCopilotOpen, onToggleCopilot, onRefresh, selectedGroup, onGroupChange }) {
+  const [isGroupMenuOpen, setIsGroupMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+  
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsGroupMenuOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+  
+  const handleGroupSelect = (value) => {
+    if (selectedGroup === value) {
+      onGroupChange?.('ALL');
+    } else {
+      onGroupChange?.(value);
+    }
+  };
+
+  const getGroupDisplayValue = () => {
+    if (!selectedGroup || selectedGroup === 'ALL') {
+      return 'ALL';
+    }
+    return selectedGroup;
+  };
+
   return (
     <ToolbarContainer>
       <ActionBar>
@@ -210,18 +338,24 @@ function DashboardToolbar({ isCopilotOpen, onToggleCopilot, onRefresh }) {
           </select>
           <FilterLabel>Brand <FilterValue>ALL</FilterValue></FilterLabel>
         </FilterDropdown>
-        <FilterDropdown>
-          <select>
-            <option>Group ALL</option>
-          </select>
-          <FilterLabel>Group <FilterValue>ALL</FilterValue></FilterLabel>
-        </FilterDropdown>
-        <FilterDropdown $width="160px">
-          <select>
-            <option>Channel type ALL</option>
-          </select>
-          <FilterLabel>Channel type <FilterValue>ALL</FilterValue></FilterLabel>
-        </FilterDropdown>
+        <FilterWrapper ref={menuRef}>
+          <FilterButton onClick={() => setIsGroupMenuOpen(!isGroupMenuOpen)}>
+            Group <strong>{getGroupDisplayValue()}</strong>
+          </FilterButton>
+          {isGroupMenuOpen && (
+            <DropdownMenu>
+              {groupOptions.map((option) => (
+                <DropdownItem key={option.value}>
+                  <Checkbox
+                    checked={selectedGroup === option.value}
+                    onChange={() => handleGroupSelect(option.value)}
+                  />
+                  {option.label}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          )}
+        </FilterWrapper>
         <FilterDropdown>
           <select>
             <option>Channel ALL</option>
@@ -233,6 +367,12 @@ function DashboardToolbar({ isCopilotOpen, onToggleCopilot, onRefresh }) {
             <option>Tags ALL</option>
           </select>
           <FilterLabel>Tags <FilterValue>ALL</FilterValue></FilterLabel>
+        </FilterDropdown>
+        <FilterDropdown $width="180px">
+          <select>
+            <option>Time Last 60 minutes</option>
+          </select>
+          <FilterLabel>Time <FilterValue>Last 60 minutes</FilterValue></FilterLabel>
         </FilterDropdown>
       </FilterBar>
     </ToolbarContainer>

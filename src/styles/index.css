@@ -47,3 +47,9 @@ code {
 [class*="c-btldaI"] {
   font-size: 14px;
 }
+
+/* Ensure Zendesk-UI navigation SVG icons display correctly */
+[class*="sc-"] svg,
+[class*="c-"] svg {
+  overflow: visible;
+}

@@ -29,7 +29,7 @@ const Logo = styled.div`
   }
 `;
 
-const ZendeskLogo = "/RTM2026/Logo.png";
+const ZendeskLogo = "/rtm2026/Logo.png";
 
 const ProductTray = styled.button`
   display: flex;
@@ -188,7 +188,7 @@ function TopNav() {
 
       <RightSection>
         <Avatar>
-          <img src="/RTM2026/Avatar.png" alt="User avatar" />
+          <img src="/rtm2026/Avatar.png" alt="User avatar" />
         </Avatar>
       </RightSection>
     </TopNavContainer>

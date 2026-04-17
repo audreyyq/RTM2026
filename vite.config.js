@@ -4,7 +4,7 @@ import svgr from 'vite-plugin-svgr'
 
 export default defineConfig({
   plugins: [react(), svgr()],
-  base: '/RTM2026/',
+  base: '/rtm2026/',
   server: {
     port: 3000,
     open: true

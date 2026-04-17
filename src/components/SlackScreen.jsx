@@ -911,7 +911,7 @@ function SlackScreen({ onViewDashboard }) {
               
               <Message>
                 <AppAvatar>
-                  <img src="/RTM2026/Logo.png" alt="Zendesk" />
+                  <img src="/rtm2026/Logo.png" alt="Zendesk" />
                 </AppAvatar>
                 <MessageContent>
                   <MessageHeader>
@@ -949,7 +949,7 @@ function SlackScreen({ onViewDashboard }) {
                 <NewAlertContainer>
                   <Message>
                     <AppAvatar>
-                      <img src="/RTM2026/Logo.png" alt="Zendesk" />
+                      <img src="/rtm2026/Logo.png" alt="Zendesk" />
                     </AppAvatar>
                     <MessageContent>
                       <MessageHeader>
@@ -959,30 +959,29 @@ function SlackScreen({ onViewDashboard }) {
                       </MessageHeader>
                       <AlertCard $color="#e01e5a">
                         <AlertTitle>
-                          🚨 Anomaly detected: Automated resolution rate ↓26%
+                          🚨 Escalation rate increased to 42%
                         </AlertTitle>
                         <MessageText>
-                          <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Current value</span> <strong>58%</strong> (down from 78%)<br/>
+                          <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Current value</span> <strong>42%</strong> (up from 22%)<br/>
                           <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Detected</span> Jul 2, 2026, 11:42 AM
                         </MessageText>
                         
                         <AlertSection>
                           <AlertSectionTitle>Related Metrics</AlertSectionTitle>
                           <AlertList>
-                            <li>Payment Declined intent: +340% spike</li>
-                            <li>Payment Declined escalation rate: 73%</li>
-                            <li>Billing queue depth: 45 cases (baseline: 25)</li>
+                            <li>"Payment issues" use case escalation rate: 73%</li>
+                            <li>Billing queue volume: 45 conversations (baseline: 25)</li>
                           </AlertList>
                         </AlertSection>
                         
                         <AlertSection>
                           <AlertSectionTitle>Impact</AlertSectionTitle>
-                          <MessageText>AI escalating more cases, Billing workstream overwhelmed</MessageText>
+                          <MessageText>AI agents are escalating more cases, Billing queue overwhelmed.</MessageText>
                         </AlertSection>
                         
                         <AlertButtons>
-                          <AlertButton $primary onClick={onViewDashboard}>View dashboard</AlertButton>
-                          <AlertButton>View recommended actions</AlertButton>
+                          <AlertButton $primary onClick={onViewDashboard}>View recommendations</AlertButton>
+                          <AlertButton>View dashboard</AlertButton>
                         </AlertButtons>
                       </AlertCard>
                     </MessageContent>

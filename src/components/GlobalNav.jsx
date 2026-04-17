@@ -14,7 +14,6 @@ const NavRoot = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow: hidden;
 `;
 
 const MainContent = styled.div`
