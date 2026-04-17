@@ -959,7 +959,7 @@ function SlackScreen({ onViewDashboard }) {
                       </MessageHeader>
                       <AlertCard $color="#e01e5a">
                         <AlertTitle>
-                          🚨 Escalation rate increased to 42%
+                          🚨 AI agent escalation rate increased to 42%
                         </AlertTitle>
                         <MessageText>
                           <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Current value</span> <strong>42%</strong> (up from 22%)<br/>

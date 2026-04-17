@@ -1599,70 +1599,70 @@ const escalationTableData = [
   { id: '12345', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues +1 more', duration: '1min 32sec', language: 'ENG' },
   { id: '19876', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Payment issues', duration: '1min 32sec', language: 'ENG' },
   { id: '20567', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Payment issues', duration: '0min 45sec', language: 'ENG' },
-  { id: '22345', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Product Feedback', duration: '2min 50sec', language: 'POL' },
+  { id: '22345', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Account access', duration: '2min 50sec', language: 'POL' },
   { id: '30001', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Payment issues +1 more', duration: '1min 3sec', language: 'ITA' },
   { id: '30003', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Payment issues', duration: '1min 16sec', language: 'ENG' },
   { id: '30005', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '3min 50sec', language: 'POL' },
-  { id: '30007', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Cancellation Requests', duration: '2min 38sec', language: 'ITA' },
+  { id: '30007', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Refund request', duration: '2min 38sec', language: 'ITA' },
   { id: '30009', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Payment issues', duration: '4min 25sec', language: 'ENG' },
-  { id: '30011', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Shipping Status Inquiry', duration: '3min 6sec', language: 'POL' },
+  { id: '30011', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'General billing', duration: '3min 6sec', language: 'POL' },
   { id: '30013', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues +1 more', duration: '4min 46sec', language: 'ITA' },
   { id: '30015', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Payment issues', duration: '3min 32sec', language: 'ENG' },
-  { id: '30017', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Cancellation Requests', duration: '2min 35sec', language: 'POL' },
+  { id: '30017', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Refund request', duration: '2min 35sec', language: 'POL' },
   { id: '30019', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Payment issues', duration: '4min 54sec', language: 'ITA' },
-  { id: '30021', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Product Feedback', duration: '4min 5sec', language: 'ENG' },
-  { id: '30023', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Shipping Status Inquiry', duration: '3min 20sec', language: 'POL' },
+  { id: '30021', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Account access', duration: '4min 5sec', language: 'ENG' },
+  { id: '30023', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'General billing', duration: '3min 20sec', language: 'POL' },
   { id: '30025', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues', duration: '2min 15sec', language: 'ENG' },
   { id: '30027', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues +1 more', duration: '1min 48sec', language: 'ITA' },
-  { id: '30029', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '3min 12sec', language: 'POL' },
+  { id: '30029', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Refund request', duration: '3min 12sec', language: 'POL' },
   { id: '30031', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '2min 45sec', language: 'ENG' },
-  { id: '30033', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '4min 20sec', language: 'ITA' },
-  { id: '30035', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '1min 55sec', language: 'POL' },
+  { id: '30033', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Account access', duration: '4min 20sec', language: 'ITA' },
+  { id: '30035', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'General billing', duration: '1min 55sec', language: 'POL' },
   { id: '30037', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '3min 38sec', language: 'ENG' },
   { id: '30039', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '2min 22sec', language: 'ITA' },
-  { id: '30041', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '4min 10sec', language: 'POL' },
+  { id: '30041', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Refund request', duration: '4min 10sec', language: 'POL' },
   { id: '30043', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '1min 35sec', language: 'ENG' },
-  { id: '30045', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '3min 50sec', language: 'ITA' },
-  { id: '30047', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '2min 28sec', language: 'POL' },
+  { id: '30045', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Account access', duration: '3min 50sec', language: 'ITA' },
+  { id: '30047', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'General billing', duration: '2min 28sec', language: 'POL' },
   { id: '30049', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '4min 5sec', language: 'ENG' },
   { id: '30051', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '1min 42sec', language: 'ITA' },
-  { id: '30053', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '3min 18sec', language: 'POL' },
+  { id: '30053', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Refund request', duration: '3min 18sec', language: 'POL' },
   { id: '30055', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '2min 55sec', language: 'ENG' },
-  { id: '30057', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '4min 32sec', language: 'ITA' },
-  { id: '30059', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '1min 20sec', language: 'POL' },
+  { id: '30057', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Account access', duration: '4min 32sec', language: 'ITA' },
+  { id: '30059', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'General billing', duration: '1min 20sec', language: 'POL' },
   { id: '30061', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '3min 45sec', language: 'ENG' },
   { id: '30063', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '2min 10sec', language: 'ITA' },
-  { id: '30065', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '4min 48sec', language: 'POL' },
+  { id: '30065', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Refund request', duration: '4min 48sec', language: 'POL' },
   { id: '30067', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '1min 58sec', language: 'ENG' },
-  { id: '30069', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '3min 25sec', language: 'ITA' },
-  { id: '30071', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '2min 40sec', language: 'POL' },
+  { id: '30069', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Account access', duration: '3min 25sec', language: 'ITA' },
+  { id: '30071', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'General billing', duration: '2min 40sec', language: 'POL' },
   { id: '30073', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '4min 15sec', language: 'ENG' },
   { id: '30075', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '1min 30sec', language: 'ITA' },
-  { id: '30077', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '3min 55sec', language: 'POL' },
+  { id: '30077', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Refund request', duration: '3min 55sec', language: 'POL' },
   { id: '30079', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '2min 18sec', language: 'ENG' },
-  { id: '30081', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '4min 42sec', language: 'ITA' },
-  { id: '30083', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '1min 45sec', language: 'POL' },
+  { id: '30081', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Account access', duration: '4min 42sec', language: 'ITA' },
+  { id: '30083', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'General billing', duration: '1min 45sec', language: 'POL' },
   { id: '30085', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '3min 30sec', language: 'ENG' },
   { id: '30087', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '2min 5sec', language: 'ITA' },
-  { id: '30089', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '4min 28sec', language: 'POL' },
+  { id: '30089', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Refund request', duration: '4min 28sec', language: 'POL' },
   { id: '30091', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '1min 52sec', language: 'ENG' },
-  { id: '30093', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '3min 15sec', language: 'ITA' },
-  { id: '30095', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '2min 48sec', language: 'POL' },
+  { id: '30093', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Account access', duration: '3min 15sec', language: 'ITA' },
+  { id: '30095', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'General billing', duration: '2min 48sec', language: 'POL' },
   { id: '30097', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '4min 8sec', language: 'ENG' },
   { id: '30099', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '1min 38sec', language: 'ITA' },
-  { id: '30101', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '3min 58sec', language: 'POL' },
+  { id: '30101', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Refund request', duration: '3min 58sec', language: 'POL' },
   { id: '30103', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '2min 25sec', language: 'ENG' },
-  { id: '30105', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '4min 35sec', language: 'ITA' },
-  { id: '30107', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '1min 28sec', language: 'POL' },
+  { id: '30105', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Account access', duration: '4min 35sec', language: 'ITA' },
+  { id: '30107', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'General billing', duration: '1min 28sec', language: 'POL' },
   { id: '30109', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '3min 42sec', language: 'ENG' },
   { id: '30111', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '2min 12sec', language: 'ITA' },
-  { id: '30113', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '4min 52sec', language: 'POL' },
+  { id: '30113', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Refund request', duration: '4min 52sec', language: 'POL' },
   { id: '30115', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Brasilian Customer', useCase: 'Payment issues', duration: '1min 15sec', language: 'ENG' },
-  { id: '30117', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Product Feedback', duration: '3min 28sec', language: 'ITA' },
-  { id: '30119', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'Shipping Status Inquiry', duration: '2min 55sec', language: 'POL' },
+  { id: '30117', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Spanish Customer', useCase: 'Account access', duration: '3min 28sec', language: 'ITA' },
+  { id: '30119', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Chilean Customer +1 more', useCase: 'General billing', duration: '2min 55sec', language: 'POL' },
   { id: '30121', aiAgent: 'Zendesk - WhatsApp', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'Portuguese Customer', useCase: 'Payment issues +1 more', duration: '4min 18sec', language: 'ENG' },
   { id: '30123', aiAgent: 'Zendesk - chat - m', channel: 'Messaging', state: 'Completed - reviewed', outcome: 'Assisted escalation', segment: 'Colombian Customer +1 more', useCase: 'Payment issues', duration: '1min 48sec', language: 'ITA' },
-  { id: '30125', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Cancellation Requests', duration: '2min 32sec', language: 'ENG' },
+  { id: '30125', aiAgent: 'Zendesk - facebook', channel: 'Messaging', state: 'Completed - pending review', outcome: 'Assisted escalation', segment: 'English Customer', useCase: 'Refund request', duration: '2min 32sec', language: 'ENG' },
 ];
 
 // Baseline data
@@ -1920,7 +1920,7 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
               <Alert type="warning">
                 <AlertRow>
                   <div>
-                    <Title>Escalation rate increased to 44% · Payment issues +340%</Title>
+                    <Title>Escalation rate increased to 44% · "Payment issues" use case +340% (73% escalating)</Title>
                     <AlertTimestamp>Detected 2 min ago</AlertTimestamp>
                   </div>
                   <Button size="small" onClick={() => { setShowCopilot(false); setShowRecommendations(true); }}>View recommendations</Button>
@@ -2114,7 +2114,7 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
               <RecommendationCard>
                 <RecommendationHeader>
                   <RecommendationTitle>
-                    <RecommendationTitleText>Reassign payment declined tickets to Tier 2 specialists</RecommendationTitleText>
+                    <RecommendationTitleText>Reassign "Payment declined" topic tickets to Tier 2 specialists</RecommendationTitleText>
                   </RecommendationTitle>
                   <RecommendationChevron>
                     <svg width="16" height="16" viewBox="0 0 16 16" focusable="false">
@@ -2125,9 +2125,8 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
                 <RecommendationBody>
                   <RecommendationSectionLabel>This addresses:</RecommendationSectionLabel>
                   <RecommendationList>
-                    <li>26 Payment Declined tickets in Billing queue</li>
+                    <li>26 "Payment declined" topic tickets in Billing queue</li>
                     <li>High queue wait times</li>
-                    <li>AI agents are struggling with <strong>Payment Declined</strong></li>
                   </RecommendationList>
                   
                   <RecommendationSectionLabel>Expected impact:</RecommendationSectionLabel>
@@ -2291,16 +2290,14 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
                       <CopilotMessageText>
                         <p><strong>What's happening:</strong></p>
                         <ul>
-                          <li>AI resolution rate dropped from <strong>78% → 58%</strong></li>
                           <li>Escalation rate increased to <strong>42%</strong> (baseline: 22%)</li>
                           <li>Billing queue: <strong>52 cases</strong> (baseline: 8)</li>
                         </ul>
                         <p><strong>Root cause:</strong></p>
                         <p>Payment Declined topic is driving the spike:</p>
                         <ul>
-                          <li>Payment Declined volume spiked <strong>+340%</strong> in the last 30 minutes</li>
-                          <li>AI agents are escalating <strong>73%</strong> of Payment Declined tickets (vs. 22% baseline)</li>
-                          <li>Accounts for <strong>~50%</strong> of current escalations</li>
+                          <li>AI agents are escalating <strong>73%</strong> of "Payment issues" use case tickets (vs. 22% baseline)</li>
+                          <li>"Payment declined" topic accounts for <strong>~50%</strong> of current escalations</li>
                         </ul>
                         <p><strong>Why escalation rates are spiking:</strong></p>
                         <p>Payment Declined cases involve merchant processing issues outside AI training. AI handles standard scenarios (insufficient funds, expired cards) but can't resolve system-level payment gateway problems.</p>
@@ -2359,13 +2356,12 @@ function Dashboard({ state, onStateChange, showAlertStates = true, onResetProtot
                           <CopilotRecCard>
                             <CopilotRecHeader>Recommended action</CopilotRecHeader>
                             <CopilotRecContent>
-                              <CopilotRecTitle>Reassign 26 Payment Declined tickets to Tier 2 specialists</CopilotRecTitle>
+                              <CopilotRecTitle>Reassign 26 "Payment declined" topic tickets to Tier 2 specialists</CopilotRecTitle>
                               <CopilotRecSection>
                                 <CopilotRecSectionTitle>This addresses</CopilotRecSectionTitle>
                                 <CopilotRecList>
                                   <li>Billing queue overflow (45 total tickets)</li>
                                   <li>High queue wait times (9min avg)</li>
-                                  <li>AI struggling (73% escalation rate)</li>
                                 </CopilotRecList>
                               </CopilotRecSection>
                               <CopilotRecSection>
