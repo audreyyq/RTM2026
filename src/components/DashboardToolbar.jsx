@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components'
 import { Button } from '@zendeskgarden/react-buttons';
-
-const ReloadIcon = "https://www.figma.com/api/mcp/asset/6b423ed7-0b44-4102-b6a0-5060f6f53387";
+import ReloadIcon from '@zendeskgarden/svg-icons/src/16/reload-stroke.svg?react';
 
 const ToolbarContainer = styled.div`
   display: flex;
@@ -308,7 +307,7 @@ function DashboardToolbar({ isCopilotOpen, onToggleCopilot, onRefresh, selectedG
 
         <ActionButtons>
           <IconButton title="Refresh" onClick={onRefresh}>
-            <img src={ReloadIcon} alt="Refresh" style={{ width: '14px', height: '16px', objectFit: 'contain' }} />
+            <ReloadIcon />
           </IconButton>
           <Button size="small">Edit</Button>
           <Button isPrimary size="small">Share</Button>
